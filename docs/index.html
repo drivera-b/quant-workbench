@@ -24,6 +24,11 @@
               <span class="badge badge-rust">Execution stress</span>
               <span class="badge badge-olive">Forward validation</span>
             </div>
+            <div class="hero-links">
+              <a class="hero-link" href="../README.md">Repository guide</a>
+              <a class="hero-link" href="../WORKFLOW.md">Workflow</a>
+              <a class="hero-link" href="../ARCHITECTURE.md">Architecture</a>
+            </div>
           </div>
           <div class="hero-visual" aria-label="Research summary">
             <div class="visual-panel">
@@ -75,6 +80,7 @@
             <div class="segmented-control" role="tablist" aria-label="Views">
               <button class="segmented-button is-active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
               <button class="segmented-button" data-tab="validation" role="tab" aria-selected="false">Validation</button>
+              <button class="segmented-button" data-tab="use" role="tab" aria-selected="false">Use It</button>
               <button class="segmented-button" data-tab="stress" role="tab" aria-selected="false">Stress</button>
               <button class="segmented-button" data-tab="interview" role="tab" aria-selected="false">Interview</button>
             </div>
@@ -218,6 +224,93 @@
                     <li>Recent windows turning persistently negative</li>
                     <li>Signal cadence collapsing versus historical assumptions</li>
                     <li>Venue adapter failing to reproduce the benchmark intents</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="panel-use" role="tabpanel">
+              <div class="section-head">
+                <h2>How it can be used</h2>
+                <p>
+                  The public repository is useful as a lightweight research
+                  workbench for anyone who has an empirical trade CSV and wants
+                  a quick read on trade-level expectancy, uncertainty, and
+                  simple lifecycle economics.
+                </p>
+              </div>
+
+              <div class="comparison-grid">
+                <article class="mini-panel">
+                  <h3>Useful for</h3>
+                  <ul class="detail-list">
+                    <li>quant research demos and portfolio projects</li>
+                    <li>evaluating a backtest trade export without a full stack</li>
+                    <li>teaching trade-level EV versus account-level geometry</li>
+                    <li>sanity-checking whether a trade stream survives friction assumptions</li>
+                  </ul>
+                </article>
+                <article class="mini-panel">
+                  <h3>Not intended as</h3>
+                  <ul class="detail-list">
+                    <li>a turnkey live trading system</li>
+                    <li>a broker-connected execution engine</li>
+                    <li>a public release of private alpha configuration</li>
+                    <li>a substitute for venue-specific execution validation</li>
+                  </ul>
+                </article>
+              </div>
+
+              <div class="comparison-grid">
+                <article class="mini-panel">
+                  <h3>Quick start</h3>
+                  <div class="code-card">
+                    <pre><code>python3 -m pip install -e .
+python3 -m quant_workbench.cli summarize-trades \
+  --trades examples/sample_trades.csv
+
+python3 -m quant_workbench.cli bootstrap-ev \
+  --trades examples/sample_trades.csv \
+  --iterations 2000 --seed 7
+
+python3 -m quant_workbench.cli simulate-lifecycle \
+  --trades examples/sample_trades.csv \
+  --iterations 2000 --seed 7</code></pre>
+                  </div>
+                </article>
+                <article class="mini-panel">
+                  <h3>Expected CSV schema</h3>
+                  <div class="code-card">
+                    <pre><code>pnl,regime
+161.26,volatile
+-89.98,normal
+322.52,volatile
+-251.24,normal</code></pre>
+                  </div>
+                  <p class="mini-copy">
+                    Only `pnl` is required. `regime` is optional and kept as
+                    context if the caller wants to carry it through the trade set.
+                  </p>
+                </article>
+              </div>
+
+              <div class="comparison-grid">
+                <article class="mini-panel">
+                  <h3>Public package outputs</h3>
+                  <dl class="stat-list">
+                    <div><dt>Trade summary</dt><dd>win rate, EV, PF, DD</dd></div>
+                    <div><dt>Bootstrap EV</dt><dd>confidence band + zero-cross</dd></div>
+                    <div><dt>Lifecycle sim</dt><dd>pass rate, payout rate, net EV</dd></div>
+                    <div><dt>Showcase UI</dt><dd>repo overview + graphs + usage path</dd></div>
+                  </dl>
+                </article>
+                <article class="mini-panel">
+                  <h3>What a new user gets</h3>
+                  <ul class="detail-list">
+                    <li>runnable public code</li>
+                    <li>example data to test the workflow immediately</li>
+                    <li>documentation that explains the why, not just the commands</li>
+                    <li>a clear separation between public workbench logic and private strategy details</li>
                   </ul>
                 </article>
               </div>

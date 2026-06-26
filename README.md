@@ -31,6 +31,9 @@ This public mirror does **not** include:
 - [WORKFLOW.md](WORKFLOW.md)  
   End-to-end research workflow: event extraction, validation, lifecycle modeling, and forward evaluation.
 
+- [USER_GUIDE.md](USER_GUIDE.md)  
+  How to run the public package on a trade CSV and what the commands return.
+
 - [CASE_STUDY.md](CASE_STUDY.md)  
   Narrative case study of the problem, methodology, and main lessons.
 

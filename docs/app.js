@@ -99,6 +99,7 @@ const tabs = Array.from(document.querySelectorAll(".segmented-button"));
 const panels = {
   overview: document.getElementById("panel-overview"),
   validation: document.getElementById("panel-validation"),
+  use: document.getElementById("panel-use"),
   stress: document.getElementById("panel-stress"),
   interview: document.getElementById("panel-interview")
 };

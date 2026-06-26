@@ -15,6 +15,7 @@ Publish the contents of this folder:
 - `README.md`
 - `ARCHITECTURE.md`
 - `WORKFLOW.md`
+- `USER_GUIDE.md`
 - `CASE_STUDY.md`
 - `INTERVIEW_GUIDE.md`
 - `PORTFOLIO_COPY.md`
