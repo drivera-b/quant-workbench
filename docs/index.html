@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quant Research Workbench</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero-band">
+        <div class="content-wrap hero-layout">
+          <div class="hero-copy">
+            <p class="eyebrow">Public-safe showcase</p>
+            <h1>Quant Research Workbench</h1>
+            <p class="lede">
+              A validation-first research platform for intraday futures. The
+              core question is simple: can a small edge survive realistic
+              frictions, account rules, and execution uncertainty?
+            </p>
+            <div class="hero-badges" aria-label="Project highlights">
+              <span class="badge badge-teal">Event studies</span>
+              <span class="badge badge-amber">Lifecycle Monte Carlo</span>
+              <span class="badge badge-rust">Execution stress</span>
+              <span class="badge badge-olive">Forward validation</span>
+            </div>
+          </div>
+          <div class="hero-visual" aria-label="Research summary">
+            <div class="visual-panel">
+              <div class="visual-label-row">
+                <span>Frozen benchmark</span>
+                <span class="status-chip status-good">On track</span>
+              </div>
+              <div class="visual-metrics">
+                <div>
+                  <span class="visual-number">1123</span>
+                  <span class="visual-caption">OOS trades</span>
+                </div>
+                <div>
+                  <span class="visual-number">66.6%</span>
+                  <span class="visual-caption">Win rate</span>
+                </div>
+                <div>
+                  <span class="visual-number">$23.52</span>
+                  <span class="visual-caption">Expectancy / trade</span>
+                </div>
+                <div>
+                  <span class="visual-number">$2.40k</span>
+                  <span class="visual-caption">Topstep lifecycle EV</span>
+                </div>
+              </div>
+              <div class="spark-strip" id="heroSparkStrip" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="summary-band">
+          <div class="content-wrap">
+            <div class="section-head">
+              <h2>Research snapshot</h2>
+              <p>
+                The project is strongest when it reports limitations directly,
+                separates signal quality from payout geometry, and keeps recent
+                performance anchored to a frozen benchmark.
+              </p>
+            </div>
+            <div class="metric-grid" id="headlineMetrics"></div>
+          </div>
+        </section>
+
+        <section class="tabs-band">
+          <div class="content-wrap">
+            <div class="segmented-control" role="tablist" aria-label="Views">
+              <button class="segmented-button is-active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+              <button class="segmented-button" data-tab="validation" role="tab" aria-selected="false">Validation</button>
+              <button class="segmented-button" data-tab="stress" role="tab" aria-selected="false">Stress</button>
+              <button class="segmented-button" data-tab="interview" role="tab" aria-selected="false">Interview</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel-band">
+          <div class="content-wrap">
+            <div class="tab-panel is-active" id="panel-overview" role="tabpanel">
+              <div class="section-head">
+                <h2>Why it exists</h2>
+                <p>
+                  This project was built to behave more like a research system
+                  than a backtest showcase. It treats strategy evaluation as a
+                  layered process with explicit failure modes.
+                </p>
+              </div>
+              <div class="split-layout">
+                <div class="stack-block">
+                  <h3>Research question</h3>
+                  <p>
+                    Some opening-session event families in equity-index futures
+                    appear structured enough to study objectively. The goal is
+                    not to claim easy alpha. The goal is to test whether modest
+                    intraday edges can survive realistic friction and still make
+                    sense after account constraints are modeled.
+                  </p>
+                </div>
+                <div class="stack-block">
+                  <h3>What the architecture separates</h3>
+                  <div class="pill-list">
+                    <span class="pill">Signal discovery</span>
+                    <span class="pill">Context features</span>
+                    <span class="pill">Trade-level EV</span>
+                    <span class="pill">Payout geometry</span>
+                    <span class="pill">Execution drift</span>
+                    <span class="pill">Forward validation</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="workflow-grid" id="workflowGrid"></div>
+
+              <div class="section-head section-head-tight">
+                <h2>What survived deeper scrutiny</h2>
+                <p>
+                  The project became more credible as it stopped promoting every
+                  promising branch and started rewarding the branches that held
+                  up under stronger checks.
+                </p>
+              </div>
+              <div class="comparison-grid">
+                <article class="mini-panel">
+                  <h3>Strengths</h3>
+                  <ul class="detail-list">
+                    <li>Frozen benchmark instead of endless retuning</li>
+                    <li>Recent-window tracking against historical OOS</li>
+                    <li>Lifecycle simulation under multiple firm rules</li>
+                    <li>Stress scenarios for costs and fill quality</li>
+                    <li>Clear public-safe framing for recruiters</li>
+                  </ul>
+                </article>
+                <article class="mini-panel">
+                  <h3>Known weak spots</h3>
+                  <ul class="detail-list">
+                    <li>Execution quality matters a lot for short holding periods</li>
+                    <li>Month-to-month performance is uneven</li>
+                    <li>Live unattended automation is not fully proven</li>
+                    <li>Recent sample is encouraging, not a guarantee</li>
+                    <li>Venue adapter quality can make or break deployment</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="panel-validation" role="tabpanel">
+              <div class="section-head">
+                <h2>Validation posture</h2>
+                <p>
+                  The benchmark was frozen first. Newer samples were then judged
+                  on whether they stayed broadly consistent with that benchmark
+                  instead of being used as an excuse to keep tuning.
+                </p>
+              </div>
+
+              <div class="comparison-grid">
+                <article class="mini-panel">
+                  <h3>Broad OOS benchmark</h3>
+                  <dl class="stat-list">
+                    <div><dt>Trades</dt><dd>1123</dd></div>
+                    <div><dt>Win rate</dt><dd>66.6%</dd></div>
+                    <div><dt>Expectancy</dt><dd>$23.52</dd></div>
+                    <div><dt>Lifecycle EV</dt><dd>$2,396.66</dd></div>
+                  </dl>
+                </article>
+                <article class="mini-panel">
+                  <h3>Recent 90-session check</h3>
+                  <dl class="stat-list">
+                    <div><dt>Trades</dt><dd>164</dd></div>
+                    <div><dt>Win rate</dt><dd>67.7%</dd></div>
+                    <div><dt>Expectancy</dt><dd>$27.95</dd></div>
+                    <div><dt>EV lower bound</dt><dd class="positive-text">+$0.28</dd></div>
+                  </dl>
+                </article>
+              </div>
+
+              <div class="chart-block">
+                <div class="chart-header">
+                  <h3>Window consistency</h3>
+                  <p>Recent windows are compared against the frozen benchmark.</p>
+                </div>
+                <div class="window-bars" id="windowBars" aria-label="Window comparison bars"></div>
+              </div>
+
+              <div class="chart-block">
+                <div class="chart-header">
+                  <h3>Monthly stability</h3>
+                  <p>
+                    The project is honest about instability: April was weak,
+                    May was strong, and the newer sample stayed positive but not
+                    uniformly smooth.
+                  </p>
+                </div>
+                <div class="monthly-chart" id="monthlyChart" aria-label="Monthly stability chart"></div>
+              </div>
+
+              <div class="comparison-grid">
+                <article class="mini-panel">
+                  <h3>Benchmark discipline</h3>
+                  <ul class="detail-list">
+                    <li>Recent data is compared to a locked benchmark</li>
+                    <li>Policy change is explicit: exclude one weak event family</li>
+                    <li>Observed sample is judged by EV bands, not hype</li>
+                    <li>Current status: research-based go, not execution-proven go</li>
+                  </ul>
+                </article>
+                <article class="mini-panel">
+                  <h3>What would invalidate it</h3>
+                  <ul class="detail-list">
+                    <li>Execution drift large enough to resemble the 5% haircut stress</li>
+                    <li>Recent windows turning persistently negative</li>
+                    <li>Signal cadence collapsing versus historical assumptions</li>
+                    <li>Venue adapter failing to reproduce the benchmark intents</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="panel-stress" role="tabpanel">
+              <div class="section-head">
+                <h2>Stress and payout geometry</h2>
+                <p>
+                  The useful result here is not that the system has a pretty base
+                  case. It is that we can see exactly which friction assumptions
+                  it tolerates and which ones break it first.
+                </p>
+              </div>
+
+              <div class="comparison-grid">
+                <article class="mini-panel">
+                  <h3>Execution stress ladder</h3>
+                  <div class="stress-grid" id="stressGrid"></div>
+                </article>
+                <article class="mini-panel">
+                  <h3>Interpretation</h3>
+                  <ul class="detail-list">
+                    <li>Small extra costs do not destroy the profile</li>
+                    <li>Broad fill degradation is much more damaging</li>
+                    <li>Execution quality matters more than cosmetic optimization</li>
+                    <li>That makes venue choice and automation quality first-order issues</li>
+                  </ul>
+                </article>
+              </div>
+
+              <div class="chart-block">
+                <div class="chart-header">
+                  <h3>Cross-firm lifecycle comparison</h3>
+                  <p>
+                    Same trade stream, different account wrappers. This is where
+                    structure starts to matter almost as much as the edge.
+                  </p>
+                </div>
+                <div class="horizontal-bars" id="firmBars" aria-label="Firm comparison"></div>
+              </div>
+
+              <div class="chart-block">
+                <div class="chart-header">
+                  <h3>Why this matters</h3>
+                  <p>
+                    The project is not just a signal engine. It is also a study
+                    of how constraints, resets, payout timing, and fee drag
+                    reshape the economics of a small edge.
+                  </p>
+                </div>
+                <div class="quote-panel">
+                  <p>
+                    The strongest public-facing lesson is not “I found a magic
+                    strategy.” It is “I built a system that can tell me when a
+                    promising branch is still not good enough.”
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="panel-interview" role="tabpanel">
+              <div class="section-head">
+                <h2>Deeper questions</h2>
+                <p>
+                  This is the part that usually matters most in interviews: what
+                  you understand about the weaknesses, not just the outputs.
+                </p>
+              </div>
+
+              <div class="interview-grid" id="interviewGrid"></div>
+
+              <div class="comparison-grid">
+                <article class="mini-panel">
+                  <h3>Research influences</h3>
+                  <ul class="detail-list">
+                    <li>Intraday Price Formation in U.S. Equity Index Markets</li>
+                    <li>Clustering Market Regimes Using the Wasserstein Distance</li>
+                    <li>The Random Matrix-Based Informative Content of Correlation Matrices in Stock Markets</li>
+                    <li>Time-Varying Factor-Augmented Models</li>
+                    <li>Deep Learning Enhanced Multivariable GARCH</li>
+                  </ul>
+                </article>
+                <article class="mini-panel">
+                  <h3>Resume positioning</h3>
+                  <p class="mini-copy">
+                    Best framing: a validation-first quantitative research
+                    platform for intraday futures, focused on whether small edges
+                    survive realistic frictions, account rules, and execution
+                    uncertainty.
+                  </p>
+                </article>
+              </div>
+
+              <div class="resource-strip">
+                <a class="resource-chip" href="../CASE_STUDY.md">Case study</a>
+                <a class="resource-chip" href="../INTERVIEW_GUIDE.md">Interview guide</a>
+                <a class="resource-chip" href="../PORTFOLIO_COPY.md">Portfolio copy</a>
+                <a class="resource-chip" href="../PUBLISHING_CHECKLIST.md">Publishing checklist</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

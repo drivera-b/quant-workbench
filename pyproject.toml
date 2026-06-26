@@ -1,0 +1,12 @@
+[project]
+name = "quant-research-workbench"
+version = "0.1.0"
+description = "Public-safe quantitative research workbench for empirical trade analysis and lifecycle simulation."
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+quant-workbench = "quant_workbench.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
