@@ -1,0 +1,21 @@
+{
+  "config": {
+    "challenge_target": 3000.0,
+    "challenge_loss_limit": 2000.0,
+    "funded_loss_limit": 2000.0,
+    "payout_trigger": 3000.0,
+    "activation_fee": 149.0,
+    "evaluation_fee": 49.0,
+    "payout_split": 0.9,
+    "combine_trade_limit": 80,
+    "funded_trade_limit": 80
+  },
+  "iterations": 2000,
+  "pass_rate": 0.4595,
+  "payout_rate": 0.2035,
+  "prob_positive_net": 0.2035,
+  "net_ev": 444.6447190000001,
+  "median_net": -49.0,
+  "p05_net": -198.0,
+  "p95_net": 2600.532000000004
+}

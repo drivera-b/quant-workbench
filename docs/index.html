@@ -11,51 +11,28 @@
       <header class="hero-band">
         <div class="content-wrap hero-layout">
           <div class="hero-copy">
-            <p class="eyebrow">Research overview</p>
+            <p class="eyebrow">Public research workbench</p>
             <h1>Quant Research Workbench</h1>
             <p class="lede">
-              A validation-first research platform for intraday futures. The
-              core question is simple: can a small edge survive realistic
-              frictions, account rules, and execution uncertainty?
+              A validation-first intraday futures research repo built around a
+              simple question: does a small trade-level edge survive realistic
+              friction, account rules, and execution stress?
             </p>
             <div class="hero-badges" aria-label="Project highlights">
-              <span class="badge badge-teal">Event studies</span>
-              <span class="badge badge-amber">Lifecycle Monte Carlo</span>
-              <span class="badge badge-rust">Execution stress</span>
-              <span class="badge badge-olive">Regime diagnostics</span>
+              <span class="badge badge-teal">Frozen benchmark</span>
+              <span class="badge badge-amber">Recent-window checks</span>
+              <span class="badge badge-rust">Policy ablations</span>
+              <span class="badge badge-olive">Lifecycle Monte Carlo</span>
             </div>
             <div class="hero-links">
-              <a class="hero-link" href="../README.md">Repository guide</a>
-              <a class="hero-link" href="../WORKFLOW.md">Workflow</a>
-              <a class="hero-link" href="../examples/sample_report.html">Sample report</a>
+              <a class="hero-link" href="../README.md">README</a>
+              <a class="hero-link" href="../CASE_STUDY.md">Case study</a>
+              <a class="hero-link" href="../results/reference/benchmark_summary.json">Benchmark artifact</a>
+              <a class="hero-link" href="../examples/anonymized_oos_report.html">Generated report</a>
             </div>
           </div>
           <div class="hero-visual" aria-label="Research summary">
-            <div class="visual-panel">
-              <div class="visual-label-row">
-                <span>Frozen benchmark</span>
-                <span class="status-chip status-good">On track</span>
-              </div>
-              <div class="visual-metrics">
-                <div>
-                  <span class="visual-number">1123</span>
-                  <span class="visual-caption">OOS trades</span>
-                </div>
-                <div>
-                  <span class="visual-number">66.6%</span>
-                  <span class="visual-caption">Win rate</span>
-                </div>
-                <div>
-                  <span class="visual-number">$23.52</span>
-                  <span class="visual-caption">Expectancy / trade</span>
-                </div>
-                <div>
-                  <span class="visual-number">$2.40k</span>
-                  <span class="visual-caption">Topstep lifecycle EV</span>
-                </div>
-              </div>
-              <div class="spark-strip" id="heroSparkStrip" aria-hidden="true"></div>
-            </div>
+            <div id="heroVisual" class="visual-panel"></div>
           </div>
         </div>
       </header>
@@ -63,12 +40,13 @@
       <main>
         <section class="summary-band">
           <div class="content-wrap">
+            <div id="appState" class="app-state">Loading public artifacts...</div>
             <div class="section-head">
               <h2>Research snapshot</h2>
               <p>
-                The project is strongest when it reports limitations directly,
-                separates signal quality from payout geometry, and keeps recent
-                performance anchored to a frozen benchmark.
+                The public mirror is strongest when it behaves like a compact
+                research system: evidence first, limitations visible, and every
+                top-line claim traceable to a checked-in artifact.
               </p>
             </div>
             <div class="metric-grid" id="headlineMetrics"></div>
@@ -80,348 +58,20 @@
             <div class="segmented-control" role="tablist" aria-label="Views">
               <button class="segmented-button is-active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
               <button class="segmented-button" data-tab="validation" role="tab" aria-selected="false">Validation</button>
-              <button class="segmented-button" data-tab="use" role="tab" aria-selected="false">Use It</button>
-              <button class="segmented-button" data-tab="stress" role="tab" aria-selected="false">Stress</button>
-              <button class="segmented-button" data-tab="code" role="tab" aria-selected="false">Code</button>
+              <button class="segmented-button" data-tab="ablations" role="tab" aria-selected="false">Ablations</button>
+              <button class="segmented-button" data-tab="artifacts" role="tab" aria-selected="false">Artifacts</button>
+              <button class="segmented-button" data-tab="package" role="tab" aria-selected="false">Package</button>
             </div>
           </div>
         </section>
 
         <section class="panel-band">
           <div class="content-wrap">
-            <div class="tab-panel is-active" id="panel-overview" role="tabpanel">
-              <div class="section-head">
-                <h2>Why it exists</h2>
-                <p>
-                  This project was built to behave more like a research system
-                  than a backtest showcase. It treats strategy evaluation as a
-                  layered process with explicit failure modes.
-                </p>
-              </div>
-              <div class="split-layout">
-                <div class="stack-block">
-                  <h3>Research question</h3>
-                  <p>
-                    Some opening-session event families in equity-index futures
-                    appear structured enough to study objectively. The goal is
-                    not to claim easy alpha. The goal is to test whether modest
-                    intraday edges can survive realistic friction and still make
-                    sense after account constraints are modeled.
-                  </p>
-                </div>
-                <div class="stack-block">
-                  <h3>What the architecture separates</h3>
-                  <div class="pill-list">
-                    <span class="pill">Signal discovery</span>
-                    <span class="pill">Context features</span>
-                    <span class="pill">Trade-level EV</span>
-                    <span class="pill">Payout geometry</span>
-                    <span class="pill">Execution drift</span>
-                    <span class="pill">Forward validation</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="workflow-grid" id="workflowGrid"></div>
-
-              <div class="section-head section-head-tight">
-                <h2>What survived deeper scrutiny</h2>
-                <p>
-                  The project became more credible as it stopped promoting every
-                  promising branch and started rewarding the branches that held
-                  up under stronger checks.
-                </p>
-              </div>
-              <div class="comparison-grid">
-                <article class="mini-panel">
-                  <h3>Strengths</h3>
-                  <ul class="detail-list">
-                    <li>Frozen benchmark instead of endless retuning</li>
-                    <li>Recent-window tracking against historical OOS</li>
-                    <li>Lifecycle simulation under multiple firm rules</li>
-                    <li>Stress scenarios for costs and fill quality</li>
-                    <li>Runnable public workbench layer with report output</li>
-                  </ul>
-                </article>
-                <article class="mini-panel">
-                  <h3>Known weak spots</h3>
-                  <ul class="detail-list">
-                    <li>Execution quality matters a lot for short holding periods</li>
-                    <li>Month-to-month performance is uneven</li>
-                    <li>Live unattended automation is not fully proven</li>
-                    <li>Recent sample is encouraging, not a guarantee</li>
-                    <li>Venue adapter quality can make or break deployment</li>
-                  </ul>
-                </article>
-              </div>
-            </div>
-
-            <div class="tab-panel" id="panel-validation" role="tabpanel">
-              <div class="section-head">
-                <h2>Validation posture</h2>
-                <p>
-                  The benchmark was frozen first. Newer samples were then judged
-                  on whether they stayed broadly consistent with that benchmark
-                  instead of being used as an excuse to keep tuning.
-                </p>
-              </div>
-
-              <div class="comparison-grid">
-                <article class="mini-panel">
-                  <h3>Broad OOS benchmark</h3>
-                  <dl class="stat-list">
-                    <div><dt>Trades</dt><dd>1123</dd></div>
-                    <div><dt>Win rate</dt><dd>66.6%</dd></div>
-                    <div><dt>Expectancy</dt><dd>$23.52</dd></div>
-                    <div><dt>Lifecycle EV</dt><dd>$2,396.66</dd></div>
-                  </dl>
-                </article>
-                <article class="mini-panel">
-                  <h3>Recent 90-session check</h3>
-                  <dl class="stat-list">
-                    <div><dt>Trades</dt><dd>164</dd></div>
-                    <div><dt>Win rate</dt><dd>67.7%</dd></div>
-                    <div><dt>Expectancy</dt><dd>$27.95</dd></div>
-                    <div><dt>EV lower bound</dt><dd class="positive-text">+$0.28</dd></div>
-                  </dl>
-                </article>
-              </div>
-
-              <div class="chart-block">
-                <div class="chart-header">
-                  <h3>Window consistency</h3>
-                  <p>Recent windows are compared against the frozen benchmark.</p>
-                </div>
-                <div class="window-bars" id="windowBars" aria-label="Window comparison bars"></div>
-              </div>
-
-              <div class="chart-block">
-                <div class="chart-header">
-                  <h3>Monthly stability</h3>
-                  <p>
-                    The project is honest about instability: April was weak,
-                    May was strong, and the newer sample stayed positive but not
-                    uniformly smooth.
-                  </p>
-                </div>
-                <div class="monthly-chart" id="monthlyChart" aria-label="Monthly stability chart"></div>
-              </div>
-
-              <div class="comparison-grid">
-                <article class="mini-panel">
-                  <h3>Benchmark discipline</h3>
-                  <ul class="detail-list">
-                    <li>Recent data is compared to a locked benchmark</li>
-                    <li>Policy change is explicit: exclude one weak event family</li>
-                    <li>Observed sample is judged by EV bands, not hype</li>
-                    <li>Current status: research-based go, not execution-proven go</li>
-                  </ul>
-                </article>
-                <article class="mini-panel">
-                  <h3>What would invalidate it</h3>
-                  <ul class="detail-list">
-                    <li>Execution drift large enough to resemble the 5% haircut stress</li>
-                    <li>Recent windows turning persistently negative</li>
-                    <li>Signal cadence collapsing versus historical assumptions</li>
-                    <li>Venue adapter failing to reproduce the benchmark intents</li>
-                  </ul>
-                </article>
-              </div>
-            </div>
-
-            <div class="tab-panel" id="panel-use" role="tabpanel">
-              <div class="section-head">
-                <h2>How it can be used</h2>
-                <p>
-                  The public repository is useful as a lightweight research
-                  workbench for anyone who has an empirical trade CSV and wants
-                  a quick read on trade-level expectancy, uncertainty, and
-                  simple lifecycle economics.
-                </p>
-              </div>
-
-              <div class="comparison-grid">
-                <article class="mini-panel">
-                  <h3>Useful for</h3>
-                  <ul class="detail-list">
-                    <li>quant research demos and internal reviews</li>
-                    <li>evaluating a backtest trade export without a full stack</li>
-                    <li>teaching trade-level EV versus account-level geometry</li>
-                    <li>sanity-checking whether a trade stream survives friction assumptions</li>
-                  </ul>
-                </article>
-                <article class="mini-panel">
-                  <h3>Not intended as</h3>
-                  <ul class="detail-list">
-                    <li>a turnkey live trading system</li>
-                    <li>a broker-connected execution engine</li>
-                    <li>a public release of private alpha configuration</li>
-                    <li>a substitute for venue-specific execution validation</li>
-                  </ul>
-                </article>
-              </div>
-
-              <div class="comparison-grid">
-                <article class="mini-panel">
-                  <h3>Quick start</h3>
-                  <div class="code-card">
-                    <pre><code>python3 -m pip install -e .
-python3 -m quant_workbench.cli summarize-trades \
-  --trades examples/sample_trades.csv
-
-python3 -m quant_workbench.cli summarize-regimes \
-  --trades examples/sample_trades.csv
-
-python3 -m quant_workbench.cli bootstrap-ev \
-  --trades examples/sample_trades.csv \
-  --iterations 2000 --seed 7
-
-python3 -m quant_workbench.cli simulate-lifecycle \
-  --trades examples/sample_trades.csv \
-  --iterations 2000 --seed 7
-
-python3 -m quant_workbench.cli write-report \
-  --trades examples/sample_trades.csv \
-  --out examples/sample_report.html \
-  --iterations 2000 --seed 7</code></pre>
-                  </div>
-                </article>
-                <article class="mini-panel">
-                  <h3>Expected CSV schema</h3>
-                  <div class="code-card">
-                    <pre><code>pnl,regime
-161.26,volatile
--89.98,normal
-322.52,volatile
--251.24,normal</code></pre>
-                  </div>
-                  <p class="mini-copy">
-                    Only `pnl` is required. `regime` is optional and kept as
-                    context if the caller wants to carry it through the trade set.
-                  </p>
-                </article>
-              </div>
-
-              <div class="comparison-grid">
-                <article class="mini-panel">
-                  <h3>Public package outputs</h3>
-                  <dl class="stat-list">
-                    <div><dt>Trade summary</dt><dd>win rate, EV, PF, DD</dd></div>
-                    <div><dt>Regime summary</dt><dd>split metrics by label</dd></div>
-                    <div><dt>Bootstrap EV</dt><dd>confidence band + zero-cross</dd></div>
-                    <div><dt>Lifecycle sim</dt><dd>pass rate, payout rate, net EV</dd></div>
-                    <div><dt>HTML report</dt><dd>shareable static artifact from CSV</dd></div>
-                  </dl>
-                </article>
-                <article class="mini-panel">
-                  <h3>What a new user gets</h3>
-                  <ul class="detail-list">
-                    <li>runnable public code</li>
-                    <li>example data to test the workflow immediately</li>
-                    <li>documentation that explains the why, not just the commands</li>
-                    <li>a clear separation between public workbench logic and private strategy details</li>
-                  </ul>
-                </article>
-              </div>
-            </div>
-
-            <div class="tab-panel" id="panel-stress" role="tabpanel">
-              <div class="section-head">
-                <h2>Stress and payout geometry</h2>
-                <p>
-                  The useful result here is not that the system has a pretty base
-                  case. It is that we can see exactly which friction assumptions
-                  it tolerates and which ones break it first.
-                </p>
-              </div>
-
-              <div class="comparison-grid">
-                <article class="mini-panel">
-                  <h3>Execution stress ladder</h3>
-                  <div class="stress-grid" id="stressGrid"></div>
-                </article>
-                <article class="mini-panel">
-                  <h3>Interpretation</h3>
-                  <ul class="detail-list">
-                    <li>Small extra costs do not destroy the profile</li>
-                    <li>Broad fill degradation is much more damaging</li>
-                    <li>Execution quality matters more than cosmetic optimization</li>
-                    <li>That makes venue choice and automation quality first-order issues</li>
-                  </ul>
-                </article>
-              </div>
-
-              <div class="chart-block">
-                <div class="chart-header">
-                  <h3>Cross-firm lifecycle comparison</h3>
-                  <p>
-                    Same trade stream, different account wrappers. This is where
-                    structure starts to matter almost as much as the edge.
-                  </p>
-                </div>
-                <div class="horizontal-bars" id="firmBars" aria-label="Firm comparison"></div>
-              </div>
-
-              <div class="chart-block">
-                <div class="chart-header">
-                  <h3>Why this matters</h3>
-                  <p>
-                    The project is not just a signal engine. It is also a study
-                    of how constraints, resets, payout timing, and fee drag
-                    reshape the economics of a small edge.
-                  </p>
-                </div>
-                <div class="quote-panel">
-                  <p>
-                    The strongest lesson is not that one branch looked good in
-                    isolation. It is that the workbench can show when a
-                    promising branch still fails under tighter assumptions.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-panel" id="panel-code" role="tabpanel">
-              <div class="section-head">
-                <h2>Public code surface</h2>
-                <p>
-                  The public package is intentionally narrower than the private
-                  research stack, but it is still real code: load a trade CSV,
-                  summarize it, estimate uncertainty, simulate lifecycle
-                  outcomes, and generate a static report.
-                </p>
-              </div>
-
-              <div class="code-grid" id="codeGrid"></div>
-
-              <div class="comparison-grid">
-                <article class="mini-panel">
-                  <h3>Report command</h3>
-                  <div class="code-card">
-                    <pre><code>python3 -m quant_workbench.cli write-report \
-  --trades path/to/trades.csv \
-  --out report.html \
-  --iterations 2000 --seed 7</code></pre>
-                  </div>
-                </article>
-                <article class="mini-panel">
-                  <h3>Research influences</h3>
-                  <p class="mini-copy">
-                    The repository is shaped by intraday microstructure,
-                    regime-thinking, and constrained-lifecycle modeling rather
-                    than by a single strategy narrative.
-                  </p>
-                </article>
-              </div>
-
-              <div class="resource-strip">
-                <a class="resource-chip" href="../CASE_STUDY.md">Case study</a>
-                <a class="resource-chip" href="../USER_GUIDE.md">User guide</a>
-                <a class="resource-chip" href="../ARCHITECTURE.md">Architecture</a>
-                <a class="resource-chip" href="../RELATED_PAPERS.md">Related papers</a>
-                <a class="resource-chip" href="../examples/sample_report.html">Sample report</a>
-              </div>
-            </div>
+            <div class="tab-panel is-active" id="panel-overview" role="tabpanel"></div>
+            <div class="tab-panel" id="panel-validation" role="tabpanel"></div>
+            <div class="tab-panel" id="panel-ablations" role="tabpanel"></div>
+            <div class="tab-panel" id="panel-artifacts" role="tabpanel"></div>
+            <div class="tab-panel" id="panel-package" role="tabpanel"></div>
           </div>
         </section>
       </main>

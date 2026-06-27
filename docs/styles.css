@@ -30,7 +30,7 @@ html {
 
 body {
   margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
   background: linear-gradient(180deg, #edf1ee 0%, #f7faf8 38%, #eef2f0 100%);
 }
@@ -77,6 +77,7 @@ a {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  overflow-x: auto;
 }
 
 .hero-copy {
@@ -273,6 +274,30 @@ h3 {
   padding: 14px 0 8px;
 }
 
+.app-state {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.84);
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.app-state-loading {
+  border-color: rgba(15, 118, 110, 0.18);
+}
+
+.app-state-error {
+  border-color: rgba(185, 28, 28, 0.22);
+  color: var(--crimson);
+  background: rgba(253, 227, 227, 0.8);
+}
+
+.app-state.is-hidden {
+  display: none;
+}
+
 .section-head {
   display: flex;
   justify-content: space-between;
@@ -464,6 +489,10 @@ h3 {
 
 .positive-text {
   color: var(--teal);
+}
+
+.negative-text {
+  color: var(--crimson);
 }
 
 .chart-block {
@@ -697,13 +726,117 @@ h3 {
   line-height: 1.5;
 }
 
+.boundary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.boundary-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.82);
+  padding: 14px;
+}
+
+.boundary-title,
+.token-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.token-block + .token-block {
+  margin-top: 16px;
+}
+
+.token-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.artifact-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 0.83rem;
+  font-weight: 600;
+}
+
+.artifact-chip strong {
+  font-size: 0.86rem;
+}
+
+.dense-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.dense-table th,
+.dense-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.dense-table th {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.dense-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.table-row-highlight {
+  background: rgba(15, 118, 110, 0.08);
+}
+
+.artifact-link {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(15, 118, 110, 0.18);
+}
+
+.artifact-link:hover {
+  color: var(--teal);
+  border-bottom-color: rgba(15, 118, 110, 0.48);
+}
+
+.artifact-path {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.artifact-table th:nth-child(4),
+.artifact-table td:nth-child(4) {
+  min-width: 280px;
+}
+
+.artifact-table th:last-child,
+.artifact-table td:last-child {
+  min-width: 220px;
+}
+
 @media (max-width: 1080px) {
   .hero-layout,
   .split-layout,
   .comparison-grid,
   .workflow-grid,
   .metric-grid,
-  .code-grid {
+  .code-grid,
+  .boundary-grid {
     grid-template-columns: 1fr;
   }
 
@@ -745,6 +878,10 @@ h3 {
   .monthly-chart,
   .stress-grid {
     grid-template-columns: 1fr;
+  }
+
+  .artifact-path {
+    white-space: normal;
   }
 
   .segmented-control {

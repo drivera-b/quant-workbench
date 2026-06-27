@@ -1,0 +1,8 @@
+{
+  "ev": 27.952073170731783,
+  "lower": -2.2308536585365943,
+  "upper": 58.135000000000154,
+  "confidence": 0.95,
+  "zero_cross": true,
+  "lower_bound_positive": false
+}

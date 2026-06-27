@@ -1,0 +1,15 @@
+{
+  "name": "frozen_ranked_event_benchmark",
+  "scope": "broad_out_of_sample_reference",
+  "source_note": "Checked-in public reference artifact exported from the private ranked-event research environment.",
+  "trades": 1123,
+  "win_rate": 0.666073,
+  "expectancy": 23.51512,
+  "lifecycle_net_ev": 2396.663905,
+  "lifecycle_prob_positive_net": 0.734,
+  "zero_cross": false,
+  "observed_recent_trades": 164,
+  "observed_recent_expectancy": 27.952073,
+  "observed_recent_win_rate": 0.676829,
+  "observed_recent_status": "on_track"
+}

@@ -1,0 +1,39 @@
+{
+  "public_boundary": {
+    "includes": [
+      "frozen benchmark summary metrics",
+      "recent-window validation artifacts",
+      "policy and cost ablation tables",
+      "an anonymized trade export preserving the empirical pnl distribution"
+    ],
+    "excludes": [
+      "raw minute data and venue adapters",
+      "private ranked-event score thresholds and optimizer internals",
+      "live execution bridges and deployable account credentials"
+    ]
+  },
+  "artifact_provenance": {
+    "benchmark_summary": "outputs/databento_forward_validation_now/window_sweep_exclude_prior_sweep.json",
+    "window_checks": "outputs/databento_forward_validation_now/window_sweep_exclude_prior_sweep.csv",
+    "monthly_stability": "outputs/robustness_exclude_prior_sweep/monthly_stability.csv",
+    "policy_ablations": "outputs/robustness_exclude_prior_sweep/robustness_summary.json",
+    "stress_scenarios": "outputs/robustness_exclude_prior_sweep/robustness_summary.json",
+    "firm_comparison": "outputs/robustness_exclude_prior_sweep/robustness_summary.json"
+  },
+  "interpretation_rules": [
+    "benchmark metrics are treated as a frozen reference, not a retuning target",
+    "recent windows are judged by expectancy bands and status flags rather than by best recent return",
+    "execution stress is modeled explicitly because short-hold futures systems are sensitive to degradation",
+    "public artifacts are meant for auditability and reuse, not as turnkey deployment code"
+  ],
+  "best_current_policy": "exclude_prior_sweep",
+  "recommendation": {
+    "status": "candidate_ready_for_small_real_eval_not_proven_live_automation",
+    "why": [
+      "The exclusion rule is the only tested policy at the 90-session anchor with a positive EV lower bound and zero_cross false.",
+      "Topstep lifecycle Monte Carlo remains positive under small extra cost stress (+$1 and +$2 per trade).",
+      "A broad 5% fill haircut materially weakens the profile, so execution quality still matters.",
+      "Cross-firm payout geometry looks best for MFFU Rapid and Lucid Pro on this same trade stream."
+    ]
+  }
+}

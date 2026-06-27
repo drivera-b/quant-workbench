@@ -2,34 +2,16 @@
 
 ## What the public package does
 
-The public package is intentionally small and focused. It is useful for evaluating an empirical trade CSV when the goal is to answer questions like:
+The public package is intentionally small and focused. It is useful for
+evaluating an empirical trade CSV when the goal is to answer questions like:
 
 - what is the trade-level expectancy?
 - which regime labels help or hurt the stream?
 - how noisy is that expectancy?
-- what happens if the same trade stream is wrapped in a constrained account lifecycle?
+- what happens when the same trade stream is wrapped in a constrained account
+  lifecycle?
 
 It is not a broker adapter or live trading engine.
-
-## Input format
-
-The package expects a CSV with at least one column:
-
-```csv
-pnl
-161.26
--89.98
-322.52
-```
-
-An optional `regime` column can be included:
-
-```csv
-pnl,regime
-161.26,volatile
--89.98,normal
-322.52,volatile
-```
 
 ## Installation
 
@@ -39,12 +21,63 @@ From the repository root:
 python3 -m pip install -e .
 ```
 
+## Public demo rebuild
+
+If you want the full checked-in public surface rebuilt from the anonymized
+example input, start here:
+
+```bash
+python3 -m quant_workbench.cli build-public-demo --repo-root . --iterations 2000 --seed 7
+```
+
+That command regenerates:
+
+- `examples/anonymized_oos_report.html`
+- `results/generated/package_summary.json`
+- `results/generated/package_regimes.json`
+- `results/generated/package_bootstrap_ev.json`
+- `results/generated/package_lifecycle.json`
+- `results/generated/artifact_manifest.json`
+- `docs/data/site_data.json`
+
+## Input format
+
+The core package reads a CSV with at least one required column:
+
+```csv
+pnl
+161.26
+-251.24
+161.26
+```
+
+An optional `regime` column can be included:
+
+```csv
+pnl,regime
+161.26,volatile
+-251.24,normal
+161.26,volatile
+```
+
+The checked-in public example is intentionally richer:
+
+```csv
+trade_id,session_id,event_family,regime,score_bucket,bars_held,outcome,pnl
+T0001,S001,gap,volatile,0.4-0.5,1,win,161.26
+T0002,S001,impulse,normal,0.2-0.3,2,loss,-251.24
+```
+
+The extra fields help the public artifacts feel like a real research export,
+even though the core metrics package only requires `pnl` and optionally
+`regime`.
+
 ## Commands
 
 ### 1. Summarize trades
 
 ```bash
-python3 -m quant_workbench.cli summarize-trades --trades path/to/trades.csv
+python3 -m quant_workbench.cli summarize-trades --trades examples/anonymized_oos_trades.csv
 ```
 
 Returns:
@@ -61,7 +94,7 @@ Returns:
 
 ```bash
 python3 -m quant_workbench.cli bootstrap-ev \
-  --trades path/to/trades.csv \
+  --trades examples/anonymized_oos_trades.csv \
   --iterations 2000 \
   --seed 7
 ```
@@ -76,7 +109,7 @@ Returns:
 ### 3. Summarize by regime
 
 ```bash
-python3 -m quant_workbench.cli summarize-regimes --trades path/to/trades.csv
+python3 -m quant_workbench.cli summarize-regimes --trades examples/anonymized_oos_trades.csv
 ```
 
 Returns:
@@ -89,7 +122,7 @@ Returns:
 
 ```bash
 python3 -m quant_workbench.cli simulate-lifecycle \
-  --trades path/to/trades.csv \
+  --trades examples/anonymized_oos_trades.csv \
   --iterations 2000 \
   --seed 7
 ```
@@ -100,35 +133,36 @@ Returns:
 - payout rate
 - probability of positive net
 - net expected value
-- median / tail net outcomes
+- median and tail net outcomes
 
 ### 5. Write a static HTML report
 
 ```bash
 python3 -m quant_workbench.cli write-report \
-  --trades path/to/trades.csv \
-  --out report.html \
+  --trades examples/anonymized_oos_trades.csv \
+  --out examples/anonymized_oos_report.html \
   --iterations 2000 \
   --seed 7
 ```
 
-Returns:
+Returns a self-contained HTML report with:
 
-- a self-contained HTML report with trade summary
+- trade summary
 - regime breakdown when labels are present
 - bootstrap EV bounds
 - lifecycle Monte Carlo outputs
 
 ## Interpreting the results
 
-The public package is most useful when the outputs are treated as decision-support tools, not as promises.
+The public package is most useful when the outputs are treated as
+decision-support tools, not promises.
 
 Good uses:
 
 - compare two trade streams
-- see how sensitive a strategy is to friction
+- inspect which regime buckets are actually carrying expectancy
 - generate a quick shareable report for discussion
-- sanity-check a backtest export before deeper work
+- separate trade-level edge from account-wrapper effects
 
 Bad uses:
 

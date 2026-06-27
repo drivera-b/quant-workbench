@@ -1,0 +1,766 @@
+{
+  "reference": {
+    "benchmark_summary": {
+      "name": "frozen_ranked_event_benchmark",
+      "scope": "broad_out_of_sample_reference",
+      "source_note": "Checked-in public reference artifact exported from the private ranked-event research environment.",
+      "trades": 1123,
+      "win_rate": 0.666073,
+      "expectancy": 23.51512,
+      "lifecycle_net_ev": 2396.663905,
+      "lifecycle_prob_positive_net": 0.734,
+      "zero_cross": false,
+      "observed_recent_trades": 164,
+      "observed_recent_expectancy": 27.952073,
+      "observed_recent_win_rate": 0.676829,
+      "observed_recent_status": "on_track"
+    },
+    "methodology": {
+      "public_boundary": {
+        "includes": [
+          "frozen benchmark summary metrics",
+          "recent-window validation artifacts",
+          "policy and cost ablation tables",
+          "an anonymized trade export preserving the empirical pnl distribution"
+        ],
+        "excludes": [
+          "raw minute data and venue adapters",
+          "private ranked-event score thresholds and optimizer internals",
+          "live execution bridges and deployable account credentials"
+        ]
+      },
+      "artifact_provenance": {
+        "benchmark_summary": "outputs/databento_forward_validation_now/window_sweep_exclude_prior_sweep.json",
+        "window_checks": "outputs/databento_forward_validation_now/window_sweep_exclude_prior_sweep.csv",
+        "monthly_stability": "outputs/robustness_exclude_prior_sweep/monthly_stability.csv",
+        "policy_ablations": "outputs/robustness_exclude_prior_sweep/robustness_summary.json",
+        "stress_scenarios": "outputs/robustness_exclude_prior_sweep/robustness_summary.json",
+        "firm_comparison": "outputs/robustness_exclude_prior_sweep/robustness_summary.json"
+      },
+      "interpretation_rules": [
+        "benchmark metrics are treated as a frozen reference, not a retuning target",
+        "recent windows are judged by expectancy bands and status flags rather than by best recent return",
+        "execution stress is modeled explicitly because short-hold futures systems are sensitive to degradation",
+        "public artifacts are meant for auditability and reuse, not as turnkey deployment code"
+      ],
+      "best_current_policy": "exclude_prior_sweep",
+      "recommendation": {
+        "status": "candidate_ready_for_small_real_eval_not_proven_live_automation",
+        "why": [
+          "The exclusion rule is the only tested policy at the 90-session anchor with a positive EV lower bound and zero_cross false.",
+          "Topstep lifecycle Monte Carlo remains positive under small extra cost stress (+$1 and +$2 per trade).",
+          "A broad 5% fill haircut materially weakens the profile, so execution quality still matters.",
+          "Cross-firm payout geometry looks best for MFFU Rapid and Lucid Pro on this same trade stream."
+        ]
+      }
+    },
+    "dataset_metadata": {
+      "dataset": "anonymized_oos_trades",
+      "rows": 164,
+      "sessions": 83,
+      "fields": [
+        "trade_id",
+        "session_id",
+        "event_family",
+        "regime",
+        "score_bucket",
+        "bars_held",
+        "outcome",
+        "pnl"
+      ],
+      "anonymization": [
+        "calendar dates and timestamps removed",
+        "fine-grained event names mapped to broader family labels",
+        "scores bucketed into coarse ranges instead of exposing exact values",
+        "empirical pnl values retained so trade-level summaries and Monte Carlo outputs stay reproducible"
+      ],
+      "intended_use": [
+        "reproduce the public workbench report and summary commands",
+        "inspect regime and event-family composition without exposing private trigger timing",
+        "serve as a realistic example input for package users"
+      ]
+    },
+    "window_checks": [
+      {
+        "recent_sessions": 20,
+        "start_day": "2026-05-29",
+        "end_day": "2026-06-26",
+        "sessions": 20,
+        "trades": 39,
+        "win_rate": 0.666667,
+        "expectancy": 23.76,
+        "total_pnl": 926.64,
+        "profit_factor": 1.283713,
+        "max_drawdown": 1004.96,
+        "avg_daily_pnl": 46.332,
+        "ev_lower": -39.701538,
+        "ev_upper": 87.221538,
+        "zero_cross": true,
+        "lower_bound_positive": false,
+        "benchmark_status": "inconclusive",
+        "delta_expectancy": 0.24488,
+        "delta_win_rate": 0.000594,
+        "lifecycle_net_ev": 1814.160024,
+        "lifecycle_prob_positive_net": 0.6048,
+        "lifecycle_funded_payout_rate": 0.6048
+      },
+      {
+        "recent_sessions": 30,
+        "start_day": "2026-05-15",
+        "end_day": "2026-06-26",
+        "sessions": 30,
+        "trades": 59,
+        "win_rate": 0.711864,
+        "expectancy": 42.404068,
+        "total_pnl": 2501.84,
+        "profit_factor": 1.585763,
+        "max_drawdown": 1004.96,
+        "avg_daily_pnl": 83.394667,
+        "ev_lower": -6.53661,
+        "ev_upper": 91.344746,
+        "zero_cross": true,
+        "lower_bound_positive": false,
+        "benchmark_status": "inconclusive",
+        "delta_expectancy": 18.888948,
+        "delta_win_rate": 0.045791,
+        "lifecycle_net_ev": 5528.906577,
+        "lifecycle_prob_positive_net": 0.9412,
+        "lifecycle_funded_payout_rate": 0.9412
+      },
+      {
+        "recent_sessions": 45,
+        "start_day": "2026-04-24",
+        "end_day": "2026-06-26",
+        "sessions": 45,
+        "trades": 89,
+        "win_rate": 0.719101,
+        "expectancy": 45.389213,
+        "total_pnl": 4039.64,
+        "profit_factor": 1.643152,
+        "max_drawdown": 1023.66,
+        "avg_daily_pnl": 89.769778,
+        "ev_lower": 8.194691,
+        "ev_upper": 82.467865,
+        "zero_cross": false,
+        "lower_bound_positive": true,
+        "benchmark_status": "on_track",
+        "delta_expectancy": 21.874093,
+        "delta_win_rate": 0.053028,
+        "lifecycle_net_ev": 6124.612919,
+        "lifecycle_prob_positive_net": 0.9534,
+        "lifecycle_funded_payout_rate": 0.9534
+      },
+      {
+        "recent_sessions": 60,
+        "start_day": "2026-04-02",
+        "end_day": "2026-06-26",
+        "sessions": 60,
+        "trades": 119,
+        "win_rate": 0.672269,
+        "expectancy": 26.070924,
+        "total_pnl": 3102.44,
+        "profit_factor": 1.316628,
+        "max_drawdown": 1420.98,
+        "avg_daily_pnl": 51.707333,
+        "ev_lower": -8.592941,
+        "ev_upper": 60.73479,
+        "zero_cross": true,
+        "lower_bound_positive": false,
+        "benchmark_status": "inconclusive",
+        "delta_expectancy": 2.555804,
+        "delta_win_rate": 0.006196,
+        "lifecycle_net_ev": 2138.60752,
+        "lifecycle_prob_positive_net": 0.6756,
+        "lifecycle_funded_payout_rate": 0.6758
+      },
+      {
+        "recent_sessions": 90,
+        "start_day": "2026-02-26",
+        "end_day": "2026-06-26",
+        "sessions": 83,
+        "trades": 164,
+        "win_rate": 0.676829,
+        "expectancy": 27.952073,
+        "total_pnl": 4584.14,
+        "profit_factor": 1.344265,
+        "max_drawdown": 1979.56,
+        "avg_daily_pnl": 55.230602,
+        "ev_lower": 0.28439,
+        "ev_upper": 58.135,
+        "zero_cross": false,
+        "lower_bound_positive": true,
+        "benchmark_status": "on_track",
+        "delta_expectancy": 4.436953,
+        "delta_win_rate": 0.010756,
+        "lifecycle_net_ev": 2491.835809,
+        "lifecycle_prob_positive_net": 0.7332,
+        "lifecycle_funded_payout_rate": 0.7334
+      }
+    ],
+    "monthly_stability": [
+      {
+        "month": "2026-02",
+        "sessions": 2,
+        "active_sessions": 1,
+        "active_session_probability": 0.5,
+        "trades": 2,
+        "win_rate": 1.0,
+        "expectancy": 161.26,
+        "total_pnl": 322.52,
+        "profit_factor": 0.0,
+        "max_drawdown": 0.0,
+        "ev_lower": null,
+        "ev_upper": null,
+        "zero_cross": null,
+        "lower_bound_positive": null
+      },
+      {
+        "month": "2026-03",
+        "sessions": 21,
+        "active_sessions": 21,
+        "active_session_probability": 1.0,
+        "trades": 41,
+        "win_rate": 0.682927,
+        "expectancy": 30.467317,
+        "total_pnl": 1249.16,
+        "profit_factor": 1.38246,
+        "max_drawdown": 611.16,
+        "ev_lower": -29.898537,
+        "ev_upper": 90.833171,
+        "zero_cross": true,
+        "lower_bound_positive": false
+      },
+      {
+        "month": "2026-04",
+        "sessions": 21,
+        "active_sessions": 21,
+        "active_session_probability": 1.0,
+        "trades": 42,
+        "win_rate": 0.571429,
+        "expectancy": -15.525714,
+        "total_pnl": -652.08,
+        "profit_factor": 0.855809,
+        "max_drawdown": 1510.96,
+        "ev_lower": -74.454286,
+        "ev_upper": 43.402857,
+        "zero_cross": true,
+        "lower_bound_positive": false
+      },
+      {
+        "month": "2026-05",
+        "sessions": 21,
+        "active_sessions": 21,
+        "active_session_probability": 1.0,
+        "trades": 42,
+        "win_rate": 0.785714,
+        "expectancy": 72.867143,
+        "total_pnl": 3060.42,
+        "profit_factor": 2.353473,
+        "max_drawdown": 753.72,
+        "ev_lower": 23.76,
+        "ev_upper": 121.974286,
+        "zero_cross": false,
+        "lower_bound_positive": true
+      },
+      {
+        "month": "2026-06",
+        "sessions": 19,
+        "active_sessions": 19,
+        "active_session_probability": 1.0,
+        "trades": 37,
+        "win_rate": 0.648649,
+        "expectancy": 16.327568,
+        "total_pnl": 604.12,
+        "profit_factor": 1.184966,
+        "max_drawdown": 1004.96,
+        "ev_lower": -50.564324,
+        "ev_upper": 83.219459,
+        "zero_cross": true,
+        "lower_bound_positive": false
+      }
+    ],
+    "policy_ablations": [
+      {
+        "policy": "baseline",
+        "trades": 164,
+        "win_rate": 0.676829,
+        "expectancy": 27.952073,
+        "ev_lower": -2.230854,
+        "zero_cross": true,
+        "benchmark_status": "inconclusive",
+        "lifecycle_net_ev": 2498.31603,
+        "lifecycle_prob_positive_net": 0.735,
+        "lifecycle_funded_payout_rate": 0.735
+      },
+      {
+        "policy": "volatile_only",
+        "trades": 162,
+        "win_rate": 0.67284,
+        "expectancy": 26.306296,
+        "ev_lower": -4.249259,
+        "zero_cross": true,
+        "benchmark_status": "inconclusive",
+        "lifecycle_net_ev": 3631.008513,
+        "lifecycle_prob_positive_net": 0.7678,
+        "lifecycle_funded_payout_rate": 0.7678
+      },
+      {
+        "policy": "exclude_prior_sweep",
+        "trades": 164,
+        "win_rate": 0.676829,
+        "expectancy": 27.952073,
+        "ev_lower": 0.28439,
+        "zero_cross": false,
+        "benchmark_status": "on_track",
+        "lifecycle_net_ev": 2491.835809,
+        "lifecycle_prob_positive_net": 0.7332,
+        "lifecycle_funded_payout_rate": 0.7334
+      }
+    ],
+    "stress_scenarios": [
+      {
+        "scenario": "base",
+        "net_ev": 2509.223117,
+        "funded_payout_rate": 0.7327,
+        "prob_positive_net": 0.7326,
+        "pass_rate": 0.9996,
+        "median_net": 1878.565,
+        "p05_net": -709.5,
+        "p95_net": 6504.95875
+      },
+      {
+        "scenario": "plus_1usd",
+        "net_ev": 2324.311023,
+        "funded_payout_rate": 0.7128,
+        "prob_positive_net": 0.7128,
+        "pass_rate": 0.9998,
+        "median_net": 1850.219,
+        "p05_net": -749.95,
+        "p95_net": 6469.465263
+      },
+      {
+        "scenario": "plus_2usd",
+        "net_ev": 2120.099076,
+        "funded_payout_rate": 0.6804,
+        "prob_positive_net": 0.6803,
+        "pass_rate": 0.9996,
+        "median_net": 1814.552,
+        "p05_net": -784.0,
+        "p95_net": 6446.893513
+      },
+      {
+        "scenario": "fill_haircut_5pct",
+        "net_ev": 888.285764,
+        "funded_payout_rate": 0.4732,
+        "prob_positive_net": 0.4728,
+        "pass_rate": 0.9923,
+        "median_net": -319.5,
+        "p05_net": -1263.0,
+        "p95_net": 4206.491675
+      }
+    ],
+    "firm_comparison": [
+      {
+        "preset": "mffu-rapid-50k",
+        "prop_firm": "MyFundedFutures",
+        "program": "Rapid 50K",
+        "net_ev": 3740.59,
+        "funded_payout_rate": 0.8442,
+        "prob_positive_net": 0.8438,
+        "pass_rate": 0.9999,
+        "avg_payout_cash": 3984.2,
+        "avg_fees_paid": 243.6,
+        "profit_split": 0.9
+      },
+      {
+        "preset": "lucidpro-50k",
+        "prop_firm": "Lucid Trading",
+        "program": "LucidPro 50K",
+        "net_ev": 3706.86,
+        "funded_payout_rate": 0.8479,
+        "prob_positive_net": 0.8475,
+        "pass_rate": 0.9997,
+        "avg_payout_cash": 3921.34,
+        "avg_fees_paid": 214.48,
+        "profit_split": 0.9
+      },
+      {
+        "preset": "topstep-50k-standard",
+        "prop_firm": "Topstep",
+        "program": "50K Standard",
+        "net_ev": 2509.22,
+        "funded_payout_rate": 0.7327,
+        "prob_positive_net": 0.7326,
+        "pass_rate": 0.9996,
+        "avg_payout_cash": 3078.84,
+        "avg_fees_paid": 569.62,
+        "profit_split": 0.9
+      },
+      {
+        "preset": "lucidflex-50k",
+        "prop_firm": "Lucid Trading",
+        "program": "LucidFlex 50K",
+        "net_ev": 1936.85,
+        "funded_payout_rate": 0.9298,
+        "prob_positive_net": 0.9288,
+        "pass_rate": 0.9998,
+        "avg_payout_cash": 2112.33,
+        "avg_fees_paid": 175.48,
+        "profit_split": 0.9
+      },
+      {
+        "preset": "mffu-flex-50k",
+        "prop_firm": "MyFundedFutures",
+        "program": "Flex 50K",
+        "net_ev": -165.65,
+        "funded_payout_rate": 0.0,
+        "prob_positive_net": 0.0,
+        "pass_rate": 0.9996,
+        "avg_payout_cash": 0.0,
+        "avg_fees_paid": 165.65,
+        "profit_split": 0.8
+      }
+    ],
+    "firm_comparison_plus2usd": [
+      {
+        "preset": "mffu-rapid-50k",
+        "prop_firm": "MyFundedFutures",
+        "program": "Rapid 50K",
+        "net_ev": 3351.78,
+        "funded_payout_rate": 0.8187,
+        "prob_positive_net": 0.8159,
+        "pass_rate": 0.9995,
+        "avg_payout_cash": 3610.03,
+        "avg_fees_paid": 258.25,
+        "profit_split": 0.9
+      },
+      {
+        "preset": "lucidpro-50k",
+        "prop_firm": "Lucid Trading",
+        "program": "LucidPro 50K",
+        "net_ev": 3340.81,
+        "funded_payout_rate": 0.8236,
+        "prob_positive_net": 0.8227,
+        "pass_rate": 0.9991,
+        "avg_payout_cash": 3565.98,
+        "avg_fees_paid": 225.17,
+        "profit_split": 0.9
+      },
+      {
+        "preset": "topstep-50k-standard",
+        "prop_firm": "Topstep",
+        "program": "50K Standard",
+        "net_ev": 2120.1,
+        "funded_payout_rate": 0.6804,
+        "prob_positive_net": 0.6803,
+        "pass_rate": 0.9996,
+        "avg_payout_cash": 2713.97,
+        "avg_fees_paid": 593.87,
+        "profit_split": 0.9
+      },
+      {
+        "preset": "lucidflex-50k",
+        "prop_firm": "Lucid Trading",
+        "program": "LucidFlex 50K",
+        "net_ev": 1855.89,
+        "funded_payout_rate": 0.9233,
+        "prob_positive_net": 0.922,
+        "pass_rate": 0.9996,
+        "avg_payout_cash": 2041.37,
+        "avg_fees_paid": 185.48,
+        "profit_split": 0.9
+      },
+      {
+        "preset": "mffu-flex-50k",
+        "prop_firm": "MyFundedFutures",
+        "program": "Flex 50K",
+        "net_ev": -175.13,
+        "funded_payout_rate": 0.0,
+        "prob_positive_net": 0.0,
+        "pass_rate": 0.9995,
+        "avg_payout_cash": 0.0,
+        "avg_fees_paid": 175.13,
+        "profit_split": 0.8
+      }
+    ]
+  },
+  "package": {
+    "summary": {
+      "trades": 164,
+      "win_rate": 0.676829268292683,
+      "expectancy": 27.952073170731783,
+      "total_pnl": 4584.140000000012,
+      "avg_win": 161.26000000000005,
+      "avg_loss": 251.2399999999998,
+      "profit_factor": 1.34426527442752,
+      "max_drawdown": 1979.5600000000004
+    },
+    "regimes": {
+      "normal": {
+        "trades": 24,
+        "win_rate": 0.5833333333333334,
+        "expectancy": -10.615000000000009,
+        "total_pnl": -254.76000000000022,
+        "avg_win": 161.26000000000002,
+        "avg_loss": 251.23999999999995,
+        "profit_factor": 0.8985989492119092,
+        "max_drawdown": 862.4000000000001
+      },
+      "volatile": {
+        "trades": 140,
+        "win_rate": 0.6928571428571428,
+        "expectancy": 34.5635714285715,
+        "total_pnl": 4838.90000000001,
+        "avg_win": 161.2600000000002,
+        "avg_loss": 251.2399999999998,
+        "profit_factor": 1.447908605873012,
+        "max_drawdown": 2193.4000000000005
+      }
+    },
+    "bootstrap_ev": {
+      "ev": 27.952073170731783,
+      "lower": -2.2308536585365943,
+      "upper": 58.135000000000154,
+      "confidence": 0.95,
+      "zero_cross": true,
+      "lower_bound_positive": false
+    },
+    "lifecycle": {
+      "config": {
+        "challenge_target": 3000.0,
+        "challenge_loss_limit": 2000.0,
+        "funded_loss_limit": 2000.0,
+        "payout_trigger": 3000.0,
+        "activation_fee": 149.0,
+        "evaluation_fee": 49.0,
+        "payout_split": 0.9,
+        "combine_trade_limit": 80,
+        "funded_trade_limit": 80
+      },
+      "iterations": 2000,
+      "pass_rate": 0.4595,
+      "payout_rate": 0.2035,
+      "prob_positive_net": 0.2035,
+      "net_ev": 444.6447190000001,
+      "median_net": -49.0,
+      "p05_net": -198.0,
+      "p95_net": 2600.532000000004
+    },
+    "data_profile": {
+      "rows": 164,
+      "sessions": 83,
+      "event_families": [
+        {
+          "label": "gap",
+          "count": 80,
+          "share": 0.4878048780487805
+        },
+        {
+          "label": "impulse",
+          "count": 74,
+          "share": 0.45121951219512196
+        },
+        {
+          "label": "range_breakout",
+          "count": 6,
+          "share": 0.036585365853658534
+        },
+        {
+          "label": "prior_breakout",
+          "count": 4,
+          "share": 0.024390243902439025
+        }
+      ],
+      "regimes": [
+        {
+          "label": "volatile",
+          "count": 140,
+          "share": 0.8536585365853658
+        },
+        {
+          "label": "normal",
+          "count": 24,
+          "share": 0.14634146341463414
+        }
+      ],
+      "outcomes": [
+        {
+          "label": "win",
+          "count": 111,
+          "share": 0.676829268292683
+        },
+        {
+          "label": "loss",
+          "count": 53,
+          "share": 0.3231707317073171
+        }
+      ],
+      "score_buckets": [
+        {
+          "label": "0.2-0.3",
+          "count": 46,
+          "share": 0.2804878048780488
+        },
+        {
+          "label": "0.3-0.4",
+          "count": 39,
+          "share": 0.23780487804878048
+        },
+        {
+          "label": "0.6-0.7",
+          "count": 37,
+          "share": 0.22560975609756098
+        },
+        {
+          "label": "0.5-0.6",
+          "count": 24,
+          "share": 0.14634146341463414
+        },
+        {
+          "label": "0.7-0.8",
+          "count": 11,
+          "share": 0.06707317073170732
+        },
+        {
+          "label": "0.4-0.5",
+          "count": 6,
+          "share": 0.036585365853658534
+        },
+        {
+          "label": "0.8-0.9",
+          "count": 1,
+          "share": 0.006097560975609756
+        }
+      ],
+      "bars_held": [
+        {
+          "label": "1",
+          "count": 148,
+          "share": 0.9024390243902439
+        },
+        {
+          "label": "2",
+          "count": 14,
+          "share": 0.08536585365853659
+        },
+        {
+          "label": "3",
+          "count": 2,
+          "share": 0.012195121951219513
+        }
+      ]
+    },
+    "source_csv": "examples/anonymized_oos_trades.csv",
+    "report_path": "examples/anonymized_oos_report.html",
+    "commands": [
+      "python3 -m pip install -e .",
+      "python3 -m quant_workbench.cli build-public-demo --repo-root . --iterations 2000 --seed 7",
+      "python3 -m quant_workbench.cli summarize-trades --trades examples/anonymized_oos_trades.csv",
+      "python3 -m quant_workbench.cli summarize-regimes --trades examples/anonymized_oos_trades.csv",
+      "python3 -m quant_workbench.cli bootstrap-ev --trades examples/anonymized_oos_trades.csv --iterations 2000 --seed 7",
+      "python3 -m quant_workbench.cli simulate-lifecycle --trades examples/anonymized_oos_trades.csv --iterations 2000 --seed 7",
+      "python3 -m quant_workbench.cli write-report --trades examples/anonymized_oos_trades.csv --out examples/anonymized_oos_report.html --iterations 2000 --seed 7"
+    ]
+  },
+  "artifacts": [
+    {
+      "label": "Anonymized trade export",
+      "path": "examples/anonymized_oos_trades.csv",
+      "kind": "csv",
+      "group": "example",
+      "description": "Public example trade stream with session ids, broad family labels, regimes, and pnl."
+    },
+    {
+      "label": "Generated HTML report",
+      "path": "examples/anonymized_oos_report.html",
+      "kind": "html",
+      "group": "generated",
+      "description": "Self-contained report generated from the anonymized trade export."
+    },
+    {
+      "label": "Frozen benchmark summary",
+      "path": "results/reference/benchmark_summary.json",
+      "kind": "json",
+      "group": "reference",
+      "description": "Broad out-of-sample anchor exported from the private ranked-event research run."
+    },
+    {
+      "label": "Recent window checks",
+      "path": "results/reference/window_checks.csv",
+      "kind": "csv",
+      "group": "reference",
+      "description": "20/30/45/60/90-session comparisons against the frozen benchmark."
+    },
+    {
+      "label": "Policy ablations",
+      "path": "results/reference/policy_ablations.csv",
+      "kind": "csv",
+      "group": "reference",
+      "description": "90-session policy comparison showing which branch kept a positive EV lower bound."
+    },
+    {
+      "label": "Execution stress ladder",
+      "path": "results/reference/stress_scenarios.csv",
+      "kind": "csv",
+      "group": "reference",
+      "description": "Topstep lifecycle outcomes under added cost and fill haircut assumptions."
+    },
+    {
+      "label": "Cross-firm comparison",
+      "path": "results/reference/firm_comparison.csv",
+      "kind": "csv",
+      "group": "reference",
+      "description": "Same trade stream, different account wrappers and payout geometry."
+    },
+    {
+      "label": "Generated package summary",
+      "path": "results/generated/package_summary.json",
+      "kind": "json",
+      "group": "generated",
+      "description": "Trade-level summary computed from the checked-in anonymized trade stream."
+    },
+    {
+      "label": "Generated lifecycle simulation",
+      "path": "results/generated/package_lifecycle.json",
+      "kind": "json",
+      "group": "generated",
+      "description": "Monte Carlo lifecycle output from the public workbench defaults."
+    },
+    {
+      "label": "Docs site data",
+      "path": "docs/data/site_data.json",
+      "kind": "json",
+      "group": "generated",
+      "description": "Single JSON payload used by the static docs surface."
+    },
+    {
+      "label": "Artifact manifest",
+      "path": "results/generated/artifact_manifest.json",
+      "kind": "json",
+      "group": "generated",
+      "description": "Machine-readable map of reference, generated, and example artifacts."
+    }
+  ],
+  "manifest": {
+    "trades": "examples/anonymized_oos_trades.csv",
+    "report": "examples/anonymized_oos_report.html",
+    "docs_data": "docs/data/site_data.json",
+    "generated": {
+      "package_summary": "results/generated/package_summary.json",
+      "package_regimes": "results/generated/package_regimes.json",
+      "package_bootstrap_ev": "results/generated/package_bootstrap_ev.json",
+      "package_lifecycle": "results/generated/package_lifecycle.json"
+    },
+    "reference": {
+      "benchmark_summary": "results/reference/benchmark_summary.json",
+      "methodology": "results/reference/methodology.json",
+      "dataset_metadata": "results/reference/sample_dataset_metadata.json",
+      "window_checks": "results/reference/window_checks.csv",
+      "monthly_stability": "results/reference/monthly_stability.csv",
+      "policy_ablations": "results/reference/policy_ablations.csv",
+      "stress_scenarios": "results/reference/stress_scenarios.csv",
+      "firm_comparison": "results/reference/firm_comparison.csv",
+      "firm_comparison_plus2usd": "results/reference/firm_comparison_plus2usd.csv"
+    }
+  }
+}

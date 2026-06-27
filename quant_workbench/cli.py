@@ -7,6 +7,7 @@ from pathlib import Path
 from .io import load_trade_rows
 from .lifecycle import LifecycleConfig, simulate_lifecycle
 from .metrics import bootstrap_ev_ci, summarize_by_regime, summarize_trades
+from .public_demo import build_public_demo
 from .reporting import write_report_html
 
 
@@ -75,6 +76,17 @@ def command_write_report(args: argparse.Namespace) -> None:
     print(json.dumps({"report": str(target)}, indent=2))
 
 
+def command_build_public_demo(args: argparse.Namespace) -> None:
+    manifest = build_public_demo(
+        args.repo_root,
+        trades_path=args.trades,
+        iterations=args.iterations,
+        confidence=args.confidence,
+        seed=args.seed,
+    )
+    print(json.dumps(manifest, indent=2))
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Public-safe quant research workbench tools")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -128,6 +140,17 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("--combine-trade-limit", type=int, default=80)
     report.add_argument("--funded-trade-limit", type=int, default=80)
     report.set_defaults(func=command_write_report)
+
+    public_demo = sub.add_parser(
+        "build-public-demo",
+        help="Regenerate the public report, generated results, and docs data from committed public artifacts",
+    )
+    public_demo.add_argument("--repo-root", default=".")
+    public_demo.add_argument("--trades")
+    public_demo.add_argument("--iterations", type=int, default=2000)
+    public_demo.add_argument("--confidence", type=float, default=0.95)
+    public_demo.add_argument("--seed", type=int)
+    public_demo.set_defaults(func=command_build_public_demo)
 
     return parser
 

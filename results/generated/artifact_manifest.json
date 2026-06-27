@@ -1,0 +1,22 @@
+{
+  "trades": "examples/anonymized_oos_trades.csv",
+  "report": "examples/anonymized_oos_report.html",
+  "docs_data": "docs/data/site_data.json",
+  "generated": {
+    "package_summary": "results/generated/package_summary.json",
+    "package_regimes": "results/generated/package_regimes.json",
+    "package_bootstrap_ev": "results/generated/package_bootstrap_ev.json",
+    "package_lifecycle": "results/generated/package_lifecycle.json"
+  },
+  "reference": {
+    "benchmark_summary": "results/reference/benchmark_summary.json",
+    "methodology": "results/reference/methodology.json",
+    "dataset_metadata": "results/reference/sample_dataset_metadata.json",
+    "window_checks": "results/reference/window_checks.csv",
+    "monthly_stability": "results/reference/monthly_stability.csv",
+    "policy_ablations": "results/reference/policy_ablations.csv",
+    "stress_scenarios": "results/reference/stress_scenarios.csv",
+    "firm_comparison": "results/reference/firm_comparison.csv",
+    "firm_comparison_plus2usd": "results/reference/firm_comparison_plus2usd.csv"
+  }
+}

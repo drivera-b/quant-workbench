@@ -1,0 +1,6 @@
+preset,prop_firm,program,net_ev,funded_payout_rate,prob_positive_net,pass_rate,avg_payout_cash,avg_fees_paid,profit_split
+mffu-rapid-50k,MyFundedFutures,Rapid 50K,3740.59,0.8442,0.8438,0.9999,3984.2,243.6,0.9
+lucidpro-50k,Lucid Trading,LucidPro 50K,3706.86,0.8479,0.8475,0.9997,3921.34,214.48,0.9
+topstep-50k-standard,Topstep,50K Standard,2509.22,0.7327,0.7326,0.9996,3078.84,569.62,0.9
+lucidflex-50k,Lucid Trading,LucidFlex 50K,1936.85,0.9298,0.9288,0.9998,2112.33,175.48,0.9
+mffu-flex-50k,MyFundedFutures,Flex 50K,-165.65,0.0,0.0,0.9996,0.0,165.65,0.8

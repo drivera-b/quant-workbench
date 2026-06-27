@@ -1,0 +1,26 @@
+{
+  "dataset": "anonymized_oos_trades",
+  "rows": 164,
+  "sessions": 83,
+  "fields": [
+    "trade_id",
+    "session_id",
+    "event_family",
+    "regime",
+    "score_bucket",
+    "bars_held",
+    "outcome",
+    "pnl"
+  ],
+  "anonymization": [
+    "calendar dates and timestamps removed",
+    "fine-grained event names mapped to broader family labels",
+    "scores bucketed into coarse ranges instead of exposing exact values",
+    "empirical pnl values retained so trade-level summaries and Monte Carlo outputs stay reproducible"
+  ],
+  "intended_use": [
+    "reproduce the public workbench report and summary commands",
+    "inspect regime and event-family composition without exposing private trigger timing",
+    "serve as a realistic example input for package users"
+  ]
+}
