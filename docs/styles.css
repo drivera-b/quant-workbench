@@ -292,7 +292,7 @@ h3 {
 .metric-grid,
 .comparison-grid,
 .workflow-grid,
-.interview-grid {
+.code-grid {
   display: grid;
   gap: 16px;
 }
@@ -487,7 +487,7 @@ h3 {
 .monthly-chart,
 .horizontal-bars,
 .stress-grid,
-.interview-grid {
+.code-grid {
   gap: 14px;
 }
 
@@ -654,7 +654,7 @@ h3 {
   font-size: 1.06rem;
 }
 
-.interview-grid {
+.code-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 18px;
@@ -703,7 +703,7 @@ h3 {
   .comparison-grid,
   .workflow-grid,
   .metric-grid,
-  .interview-grid {
+  .code-grid {
     grid-template-columns: 1fr;
   }
 

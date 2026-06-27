@@ -5,6 +5,7 @@
 The public package is intentionally small and focused. It is useful for evaluating an empirical trade CSV when the goal is to answer questions like:
 
 - what is the trade-level expectancy?
+- which regime labels help or hurt the stream?
 - how noisy is that expectancy?
 - what happens if the same trade stream is wrapped in a constrained account lifecycle?
 
@@ -72,7 +73,19 @@ Returns:
 - zero-cross flag
 - lower-bound-positive flag
 
-### 3. Simulate lifecycle
+### 3. Summarize by regime
+
+```bash
+python3 -m quant_workbench.cli summarize-regimes --trades path/to/trades.csv
+```
+
+Returns:
+
+- one trade summary per regime label
+- per-regime win rate, expectancy, total pnl, and drawdown
+- an `unlabeled` bucket when rows do not carry a regime value
+
+### 4. Simulate lifecycle
 
 ```bash
 python3 -m quant_workbench.cli simulate-lifecycle \
@@ -89,6 +102,23 @@ Returns:
 - net expected value
 - median / tail net outcomes
 
+### 5. Write a static HTML report
+
+```bash
+python3 -m quant_workbench.cli write-report \
+  --trades path/to/trades.csv \
+  --out report.html \
+  --iterations 2000 \
+  --seed 7
+```
+
+Returns:
+
+- a self-contained HTML report with trade summary
+- regime breakdown when labels are present
+- bootstrap EV bounds
+- lifecycle Monte Carlo outputs
+
 ## Interpreting the results
 
 The public package is most useful when the outputs are treated as decision-support tools, not as promises.
@@ -97,7 +127,7 @@ Good uses:
 
 - compare two trade streams
 - see how sensitive a strategy is to friction
-- show research process in a project or interview
+- generate a quick shareable report for discussion
 - sanity-check a backtest export before deeper work
 
 Bad uses:

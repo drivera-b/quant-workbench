@@ -42,6 +42,14 @@ def summarize_trades(rows: list[TradeRow]) -> dict[str, Any]:
     }
 
 
+def summarize_by_regime(rows: list[TradeRow]) -> dict[str, dict[str, Any]]:
+    grouped: dict[str, list[TradeRow]] = {}
+    for row in rows:
+        label = row.regime or "unlabeled"
+        grouped.setdefault(label, []).append(row)
+    return {label: summarize_trades(group_rows) for label, group_rows in sorted(grouped.items())}
+
+
 def bootstrap_ev_ci(
     rows: list[TradeRow],
     iterations: int = 2000,

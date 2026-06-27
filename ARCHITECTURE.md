@@ -36,7 +36,7 @@ Typical responsibilities:
 - ranked-event or rule-based backtests
 - trade-level statistical summaries
 
-The public code package in this mirror includes the generic evaluation side of this layer, especially empirical trade summaries and bootstrap confidence intervals.
+The public code package in this mirror includes the generic evaluation side of this layer, especially empirical trade summaries, regime diagnostics, and bootstrap confidence intervals.
 
 ## 3. Lifecycle simulation
 
@@ -76,12 +76,9 @@ public_mirror/
   README.md
   ARCHITECTURE.md
   WORKFLOW.md
+  USER_GUIDE.md
   CASE_STUDY.md
-  INTERVIEW_GUIDE.md
-  PORTFOLIO_COPY.md
   RELATED_PAPERS.md
-  PUBLISHING_CHECKLIST.md
-  GITHUB_SETUP.md
   docs/
   examples/
   quant_workbench/
@@ -98,6 +95,7 @@ quant_workbench/
   io.py
   metrics.py
   lifecycle.py
+  reporting.py
 ```
 
 ## Design goals for the public mirror

@@ -40,6 +40,7 @@ The next step is not just to run a strategy but to summarize the resulting trade
 - expectancy
 - profit factor
 - drawdown
+- regime-level splits when labels are available
 
 ### 5. Bootstrap uncertainty
 
@@ -79,15 +80,19 @@ The public repository exposes a smaller runnable loop:
 
 1. load empirical trades from CSV
 2. compute trade-level summaries
-3. bootstrap confidence intervals
-4. run lifecycle Monte Carlo with configurable rules
+3. inspect regime-level splits
+4. bootstrap confidence intervals
+5. run lifecycle Monte Carlo with configurable rules
+6. write a static HTML report for quick sharing
 
 Example commands:
 
 ```bash
 python3 -m quant_workbench.cli summarize-trades --trades examples/sample_trades.csv
+python3 -m quant_workbench.cli summarize-regimes --trades examples/sample_trades.csv
 python3 -m quant_workbench.cli bootstrap-ev --trades examples/sample_trades.csv --iterations 2000 --seed 7
 python3 -m quant_workbench.cli simulate-lifecycle --trades examples/sample_trades.csv --iterations 2000 --seed 7
+python3 -m quant_workbench.cli write-report --trades examples/sample_trades.csv --out examples/sample_report.html --iterations 2000 --seed 7
 ```
 
 ## What the public workflow is for

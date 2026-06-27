@@ -74,22 +74,26 @@ const firmComparison = [
   { name: "MFFU Flex 50K", ev: -165.65, tone: "warning" }
 ];
 
-const interviewPrompts = [
+const codeSurface = [
   {
-    question: "Why does the strategy exist?",
-    answer: "Because some opening-session event families appear structured enough to test objectively once context is added. The project asks whether that structure survives real constraints."
+    question: "CLI entrypoint",
+    answer: "The package exposes a small command-line surface for summary statistics, regime diagnostics, bootstrap EV estimation, lifecycle simulation, and static HTML reporting."
   },
   {
-    question: "What changes once costs become real?",
-    answer: "Some attractive branches disappear. Execution quality becomes part of the model instead of a footnote, which is exactly where many short-term systems quietly fail."
+    question: "Input contract",
+    answer: "Users bring an empirical trade CSV with a required pnl column and an optional regime column. That keeps the workbench generic and easy to reuse."
   },
   {
-    question: "What breaks first in production?",
-    answer: "Usually the implementation layer: fills, order routing, timing, and venue-specific drift from the research benchmark. That is why the bridge layer matters."
+    question: "Public code modules",
+    answer: "The package is split into io, metrics, lifecycle, reporting, and cli layers so the workflow stays inspectable instead of collapsing into one script."
   },
   {
-    question: "What assumptions silently fail?",
-    answer: "That historical fills resemble live fills, that regime mix stays stable, and that the account wrapper will not dominate the economics of a modest edge."
+    question: "Useful output artifact",
+    answer: "The report writer turns the same CSV into a static HTML summary so someone can share results without wiring a notebook or web framework."
+  },
+  {
+    question: "Regime-aware review",
+    answer: "If the CSV carries regime labels, the workbench can break the trade stream apart by label and surface which regimes are actually carrying the expectancy."
   }
 ];
 
@@ -101,7 +105,7 @@ const panels = {
   validation: document.getElementById("panel-validation"),
   use: document.getElementById("panel-use"),
   stress: document.getElementById("panel-stress"),
-  interview: document.getElementById("panel-interview")
+  code: document.getElementById("panel-code")
 };
 
 function formatUsd(value) {
@@ -238,9 +242,9 @@ function buildFirmBars() {
     .join("");
 }
 
-function buildInterviewGrid() {
-  const container = document.getElementById("interviewGrid");
-  container.innerHTML = interviewPrompts
+function buildCodeGrid() {
+  const container = document.getElementById("codeGrid");
+  container.innerHTML = codeSurface
     .map(
       (prompt) => `
         <article class="qa-card">
@@ -275,4 +279,4 @@ buildWindowBars();
 buildMonthlyChart();
 buildStressGrid();
 buildFirmBars();
-buildInterviewGrid();
+buildCodeGrid();

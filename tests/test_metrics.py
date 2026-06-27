@@ -1,7 +1,7 @@
 import unittest
 
 from quant_workbench.io import TradeRow
-from quant_workbench.metrics import bootstrap_ev_ci, summarize_trades
+from quant_workbench.metrics import bootstrap_ev_ci, summarize_by_regime, summarize_trades
 
 
 class MetricsTests(unittest.TestCase):
@@ -21,6 +21,18 @@ class MetricsTests(unittest.TestCase):
         self.assertIn("lower", result)
         self.assertIn("upper", result)
         self.assertLessEqual(result["lower"], result["upper"])
+
+    def test_summarize_by_regime(self) -> None:
+        rows = [
+            TradeRow(100.0, "volatile"),
+            TradeRow(-50.0, "normal"),
+            TradeRow(150.0, "volatile"),
+            TradeRow(-25.0, None),
+        ]
+        result = summarize_by_regime(rows)
+        self.assertEqual(result["volatile"]["trades"], 2)
+        self.assertEqual(result["normal"]["trades"], 1)
+        self.assertEqual(result["unlabeled"]["trades"], 1)
 
 
 if __name__ == "__main__":

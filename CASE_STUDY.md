@@ -102,18 +102,18 @@ The output is not just performance. It is also:
 - how sensitive the edge is to execution quality
 - whether the recent sample is broadly consistent with the frozen benchmark
 
-## What I learned
+## Main lessons
 
-The biggest lesson was that strong research often looks less impressive at first glance.
+Strong research often looks less impressive at first glance.
 
-The branches that were easiest to sell were not always the branches that held up best. The more useful work was:
+The branches that were easiest to describe were not always the branches that held up best. The more useful work was:
 
 - tightening definitions
 - measuring fragility
 - separating signal from wrapper effects
 - accepting when a result was only conditionally good
 
-That is the part of the project I would want a recruiter or interviewer to notice.
+That is the part of the project that matters most in a serious technical review.
 
 ## Public research value
 
