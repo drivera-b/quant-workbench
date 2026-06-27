@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import html
 import json
 from collections import Counter
 from pathlib import Path
@@ -61,6 +62,178 @@ def _read_csv_rows(path: Path) -> list[dict[str, Any]]:
 
 def _relative_path(root: Path, path: Path) -> str:
     return path.resolve().relative_to(root.resolve()).as_posix()
+
+
+def _format_usd(value: float) -> str:
+    sign = "-" if value < 0 else ""
+    return f"{sign}${abs(value):,.2f}"
+
+
+def _svg_shell(*, title: str, subtitle: str, width: int, height: int, body: str) -> str:
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc">
+  <title>{html.escape(title)}</title>
+  <desc>{html.escape(subtitle)}</desc>
+  <style>
+    .bg {{ fill: #fbfcfb; stroke: #d4ddd7; stroke-width: 1; }}
+    .title {{ fill: #171c19; font: 700 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }}
+    .subtitle {{ fill: #58625c; font: 400 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }}
+    .label {{ fill: #58625c; font: 600 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }}
+    .small {{ fill: #58625c; font: 400 11px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }}
+    .value {{ fill: #171c19; font: 700 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }}
+    .axis {{ stroke: #d4ddd7; stroke-width: 1; }}
+  </style>
+  <rect class="bg" x="0.5" y="0.5" width="{width - 1}" height="{height - 1}" rx="10" />
+  <text class="title" x="28" y="38">{html.escape(title)}</text>
+  <text class="subtitle" x="28" y="60">{html.escape(subtitle)}</text>
+{body}
+</svg>
+"""
+
+
+def _render_window_checks_svg(rows: list[dict[str, Any]]) -> str:
+    width = 920
+    height = 330
+    chart_left = 64
+    chart_top = 96
+    chart_height = 170
+    baseline_y = chart_top + chart_height
+    bar_width = 108
+    gap = 48
+    max_value = max(float(row["expectancy"]) for row in rows) or 1.0
+
+    parts = [f'  <line class="axis" x1="{chart_left}" y1="{baseline_y}" x2="{width - 40}" y2="{baseline_y}" />']
+    for index, row in enumerate(rows):
+        expectancy = float(row["expectancy"])
+        height_px = max(18.0, (expectancy / max_value) * chart_height)
+        x = chart_left + 32 + index * (bar_width + gap)
+        y = baseline_y - height_px
+        color = "#0f766e" if row["benchmark_status"] == "on_track" else "#a16207"
+        label = f'{int(row["recent_sessions"])} sessions'
+        parts.extend(
+            [
+                f'  <rect x="{x}" y="{y:.2f}" width="{bar_width}" height="{height_px:.2f}" rx="8" fill="{color}" fill-opacity="0.82" />',
+                f'  <text class="value" x="{x + bar_width / 2:.1f}" y="{y - 10:.1f}" text-anchor="middle">{html.escape(_format_usd(expectancy))}</text>',
+                f'  <text class="label" x="{x + bar_width / 2:.1f}" y="{baseline_y + 22}" text-anchor="middle">{html.escape(label)}</text>',
+                f'  <text class="small" x="{x + bar_width / 2:.1f}" y="{baseline_y + 40}" text-anchor="middle">{html.escape(str(row["benchmark_status"]).replace("_", " "))}</text>',
+            ]
+        )
+    return _svg_shell(
+        title="Recent Window Checks",
+        subtitle="Expectancy per trade across 20-90 session slices versus the frozen benchmark.",
+        width=width,
+        height=height,
+        body="\n".join(parts),
+    )
+
+
+def _render_stress_scenarios_svg(rows: list[dict[str, Any]]) -> str:
+    width = 920
+    height = 330
+    chart_left = 64
+    chart_top = 96
+    chart_height = 170
+    baseline_y = chart_top + chart_height
+    bar_width = 138
+    gap = 42
+    max_value = max(float(row["net_ev"]) for row in rows) or 1.0
+    color_map = {
+        "base": "#0f766e",
+        "plus_1usd": "#3b7f77",
+        "plus_2usd": "#8f6c1e",
+        "fill_haircut_5pct": "#b91c1c",
+    }
+
+    parts = [f'  <line class="axis" x1="{chart_left}" y1="{baseline_y}" x2="{width - 40}" y2="{baseline_y}" />']
+    for index, row in enumerate(rows):
+        value = float(row["net_ev"])
+        height_px = max(18.0, (value / max_value) * chart_height)
+        x = chart_left + 20 + index * (bar_width + gap)
+        y = baseline_y - height_px
+        label = str(row["scenario"]).replace("_", " ")
+        payout_label = f"payout {float(row['funded_payout_rate']) * 100:.1f}%"
+        parts.extend(
+            [
+                f'  <rect x="{x}" y="{y:.2f}" width="{bar_width}" height="{height_px:.2f}" rx="8" fill="{color_map.get(str(row["scenario"]), "#0f766e")}" fill-opacity="0.86" />',
+                f'  <text class="value" x="{x + bar_width / 2:.1f}" y="{y - 10:.1f}" text-anchor="middle">{html.escape(_format_usd(value))}</text>',
+                f'  <text class="label" x="{x + bar_width / 2:.1f}" y="{baseline_y + 22}" text-anchor="middle">{html.escape(label)}</text>',
+                f'  <text class="small" x="{x + bar_width / 2:.1f}" y="{baseline_y + 40}" text-anchor="middle">{html.escape(payout_label)}</text>',
+            ]
+        )
+    return _svg_shell(
+        title="Execution Stress Ladder",
+        subtitle="Topstep-style lifecycle EV under added cost and fill-degradation assumptions.",
+        width=width,
+        height=height,
+        body="\n".join(parts),
+    )
+
+
+def _render_firm_comparison_svg(rows: list[dict[str, Any]]) -> str:
+    width = 980
+    height = 360
+    zero_x = 300
+    chart_right = width - 56
+    top = 92
+    row_gap = 44
+    max_abs = max(abs(float(row["net_ev"])) for row in rows) or 1.0
+    scale = (chart_right - zero_x - 24) / max_abs
+
+    parts = [
+        f'  <line class="axis" x1="{zero_x}" y1="{top - 18}" x2="{zero_x}" y2="{height - 34}" />',
+        f'  <text class="small" x="{zero_x}" y="{top - 26}" text-anchor="middle">0</text>',
+    ]
+    for index, row in enumerate(rows):
+        value = float(row["net_ev"])
+        y = top + index * row_gap
+        label = f'{row["prop_firm"]} {row["program"]}'
+        color = "#0f766e"
+        if value < 0:
+            color = "#b91c1c"
+        elif index >= 2:
+            color = "#8f6c1e"
+
+        bar_width = abs(value) * scale
+        x = zero_x if value >= 0 else zero_x - bar_width
+        text_anchor = "start" if value >= 0 else "end"
+        text_x = (x + bar_width + 10) if value >= 0 else (x - 10)
+        parts.extend(
+            [
+                f'  <text class="label" x="28" y="{y + 6}" text-anchor="start">{html.escape(label)}</text>',
+                f'  <rect x="{x:.2f}" y="{y - 11}" width="{bar_width:.2f}" height="22" rx="7" fill="{color}" fill-opacity="0.86" />',
+                f'  <text class="value" x="{text_x:.2f}" y="{y + 5}" text-anchor="{text_anchor}">{html.escape(_format_usd(value))}</text>',
+            ]
+        )
+    return _svg_shell(
+        title="Cross-Firm Lifecycle Comparison",
+        subtitle="Same trade stream, different account wrappers and payout geometry.",
+        width=width,
+        height=height,
+        body="\n".join(parts),
+    )
+
+
+def _write_readme_assets(root: Path, reference_payloads: dict[str, Any]) -> dict[str, str]:
+    asset_dir = root / "assets" / "readme"
+    asset_dir.mkdir(parents=True, exist_ok=True)
+
+    assets = {
+        "window_checks_svg": asset_dir / "window_checks.svg",
+        "stress_scenarios_svg": asset_dir / "stress_scenarios.svg",
+        "firm_comparison_svg": asset_dir / "firm_comparison.svg",
+    }
+    assets["window_checks_svg"].write_text(
+        _render_window_checks_svg(reference_payloads["window_checks"]),
+        encoding="utf-8",
+    )
+    assets["stress_scenarios_svg"].write_text(
+        _render_stress_scenarios_svg(reference_payloads["stress_scenarios"]),
+        encoding="utf-8",
+    )
+    assets["firm_comparison_svg"].write_text(
+        _render_firm_comparison_svg(reference_payloads["firm_comparison"]),
+        encoding="utf-8",
+    )
+    return {name: _relative_path(root, path) for name, path in assets.items()}
 
 
 def _profile_trade_rows(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -144,6 +317,7 @@ def build_public_demo(
         reference_payloads[key] = _read_json(reference_dir / filename)
     for key, filename in REFERENCE_CSV_FILES.items():
         reference_payloads[key] = _read_csv_rows(reference_dir / filename)
+    readme_assets = _write_readme_assets(root, reference_payloads)
 
     manifest = {
         "trades": _relative_path(root, source_trades),
@@ -155,6 +329,7 @@ def build_public_demo(
         "reference": {
             key: f"results/reference/{filename}" for key, filename in {**REFERENCE_JSON_FILES, **REFERENCE_CSV_FILES}.items()
         },
+        "readme_assets": readme_assets,
     }
     _write_json(generated_dir / "artifact_manifest.json", manifest)
 
@@ -228,6 +403,27 @@ def build_public_demo(
             "kind": "json",
             "group": "generated",
             "description": "Single JSON payload used by the static docs surface.",
+        },
+        {
+            "label": "README window chart",
+            "path": readme_assets["window_checks_svg"],
+            "kind": "svg",
+            "group": "generated",
+            "description": "Rendered README chart for recent-window validation checks.",
+        },
+        {
+            "label": "README stress chart",
+            "path": readme_assets["stress_scenarios_svg"],
+            "kind": "svg",
+            "group": "generated",
+            "description": "Rendered README chart for the execution stress ladder.",
+        },
+        {
+            "label": "README firm chart",
+            "path": readme_assets["firm_comparison_svg"],
+            "kind": "svg",
+            "group": "generated",
+            "description": "Rendered README chart for cross-firm lifecycle comparison.",
         },
         {
             "label": "Artifact manifest",

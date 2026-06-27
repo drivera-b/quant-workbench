@@ -31,3 +31,7 @@ public package only:
 
 These files prove the public workbench can regenerate a realistic docs and
 reporting surface without exposing private deployment details.
+
+The public rebuild flow also generates lightweight README charts in
+`assets/readme/` from the checked-in reference data so the repository front
+page shows actual evidence, not only links.

@@ -734,6 +734,27 @@
       "description": "Single JSON payload used by the static docs surface."
     },
     {
+      "label": "README window chart",
+      "path": "assets/readme/window_checks.svg",
+      "kind": "svg",
+      "group": "generated",
+      "description": "Rendered README chart for recent-window validation checks."
+    },
+    {
+      "label": "README stress chart",
+      "path": "assets/readme/stress_scenarios.svg",
+      "kind": "svg",
+      "group": "generated",
+      "description": "Rendered README chart for the execution stress ladder."
+    },
+    {
+      "label": "README firm chart",
+      "path": "assets/readme/firm_comparison.svg",
+      "kind": "svg",
+      "group": "generated",
+      "description": "Rendered README chart for cross-firm lifecycle comparison."
+    },
+    {
       "label": "Artifact manifest",
       "path": "results/generated/artifact_manifest.json",
       "kind": "json",
@@ -761,6 +782,11 @@
       "stress_scenarios": "results/reference/stress_scenarios.csv",
       "firm_comparison": "results/reference/firm_comparison.csv",
       "firm_comparison_plus2usd": "results/reference/firm_comparison_plus2usd.csv"
+    },
+    "readme_assets": {
+      "window_checks_svg": "assets/readme/window_checks.svg",
+      "stress_scenarios_svg": "assets/readme/stress_scenarios.svg",
+      "firm_comparison_svg": "assets/readme/firm_comparison.svg"
     }
   }
 }

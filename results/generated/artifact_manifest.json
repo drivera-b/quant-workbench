@@ -18,5 +18,10 @@
     "stress_scenarios": "results/reference/stress_scenarios.csv",
     "firm_comparison": "results/reference/firm_comparison.csv",
     "firm_comparison_plus2usd": "results/reference/firm_comparison_plus2usd.csv"
+  },
+  "readme_assets": {
+    "window_checks_svg": "assets/readme/window_checks.svg",
+    "stress_scenarios_svg": "assets/readme/stress_scenarios.svg",
+    "firm_comparison_svg": "assets/readme/firm_comparison.svg"
   }
 }

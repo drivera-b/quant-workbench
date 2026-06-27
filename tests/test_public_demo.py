@@ -89,6 +89,8 @@ class PublicDemoTests(unittest.TestCase):
             self.assertEqual(site_data["package"]["data_profile"]["event_families"][0]["label"], "gap")
             self.assertEqual(site_data["artifacts"][0]["group"], "example")
             self.assertEqual(site_data["manifest"]["report"], "examples/anonymized_oos_report.html")
+            self.assertEqual(site_data["manifest"]["readme_assets"]["window_checks_svg"], "assets/readme/window_checks.svg")
+            self.assertTrue((root / "assets" / "readme" / "window_checks.svg").exists())
 
 
 if __name__ == "__main__":

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="360" viewBox="0 0 980 360" role="img" aria-labelledby="title desc">
+  <title>Cross-Firm Lifecycle Comparison</title>
+  <desc>Same trade stream, different account wrappers and payout geometry.</desc>
+  <style>
+    .bg { fill: #fbfcfb; stroke: #d4ddd7; stroke-width: 1; }
+    .title { fill: #171c19; font: 700 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .subtitle { fill: #58625c; font: 400 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .label { fill: #58625c; font: 600 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .small { fill: #58625c; font: 400 11px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .value { fill: #171c19; font: 700 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .axis { stroke: #d4ddd7; stroke-width: 1; }
+  </style>
+  <rect class="bg" x="0.5" y="0.5" width="979" height="359" rx="10" />
+  <text class="title" x="28" y="38">Cross-Firm Lifecycle Comparison</text>
+  <text class="subtitle" x="28" y="60">Same trade stream, different account wrappers and payout geometry.</text>
+  <line class="axis" x1="300" y1="74" x2="300" y2="326" />
+  <text class="small" x="300" y="66" text-anchor="middle">0</text>
+  <text class="label" x="28" y="98" text-anchor="start">MyFundedFutures Rapid 50K</text>
+  <rect x="300.00" y="81" width="600.00" height="22" rx="7" fill="#0f766e" fill-opacity="0.86" />
+  <text class="value" x="910.00" y="97" text-anchor="start">$3,740.59</text>
+  <text class="label" x="28" y="142" text-anchor="start">Lucid Trading LucidPro 50K</text>
+  <rect x="300.00" y="125" width="594.59" height="22" rx="7" fill="#0f766e" fill-opacity="0.86" />
+  <text class="value" x="904.59" y="141" text-anchor="start">$3,706.86</text>
+  <text class="label" x="28" y="186" text-anchor="start">Topstep 50K Standard</text>
+  <rect x="300.00" y="169" width="402.49" height="22" rx="7" fill="#8f6c1e" fill-opacity="0.86" />
+  <text class="value" x="712.49" y="185" text-anchor="start">$2,509.22</text>
+  <text class="label" x="28" y="230" text-anchor="start">Lucid Trading LucidFlex 50K</text>
+  <rect x="300.00" y="213" width="310.68" height="22" rx="7" fill="#8f6c1e" fill-opacity="0.86" />
+  <text class="value" x="620.68" y="229" text-anchor="start">$1,936.85</text>
+  <text class="label" x="28" y="274" text-anchor="start">MyFundedFutures Flex 50K</text>
+  <rect x="273.43" y="257" width="26.57" height="22" rx="7" fill="#b91c1c" fill-opacity="0.86" />
+  <text class="value" x="263.43" y="273" text-anchor="end">-$165.65</text>
+</svg>
