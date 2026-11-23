@@ -1,12 +1,10 @@
-# Case Study
+# Funded-Account Case Study
 
-## Project
-
-**Quant Research Workbench**
-
-A public-safe research platform for studying whether a small intraday futures
-edge can remain viable after realistic friction, account rules, and execution
-stress are made explicit.
+I used my private Quant Research Workbench to generate and backtest intraday
+futures trades. This study follows one trade stream from that workbench and
+examines how different funded-account rules, fees, and execution assumptions
+changed the simulated outcomes. The public demo includes selected results and
+code for evaluating the anonymized trades.
 
 ## Why this project is interesting
 
@@ -33,7 +31,8 @@ The public claims in this repo are backed by checked-in artifacts:
 
 ## System design
 
-The system has five layers:
+The full private workbench has five layers. The public demo starts from a trade
+export and implements selected evaluation steps.
 
 ### 1. Data and feature layer
 

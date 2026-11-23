@@ -1,11 +1,13 @@
-# Quant Research Workbench
+# Quant Research Workbench · Public Research Demo
 
-Quant Research Workbench is a public-safe quantitative research repo for
-empirical trade analysis. It packages a few useful pieces of a larger intraday
-futures research stack while keeping private deployable thresholds, venue
-bridges, and live execution details out of the public mirror.
+I built the full Quant Research Workbench as a private platform for researching
+and backtesting intraday futures strategies. This public demo starts from an
+anonymized trade export and includes selected research results and runnable code
+to evaluate the trades.
 
-The central question is simple:
+The funded-account study is one example of how I used the workbench. I took one
+backtested trade stream and simulated how account rules, fees, and worse execution
+changed the outcome.
 
 **Can a modest intraday edge remain meaningful after transaction costs,
 account-rule friction, and execution uncertainty are made explicit?**
@@ -46,8 +48,8 @@ flowchart LR
     H --> I[Publish public-safe artifacts and reports]
 ```
 
-The public code mirrors the evaluation side of that workflow, while the private
-live execution bridge remains out of scope.
+The diagram shows the full research workflow. The public code starts from the
+trade export and covers selected evaluation and reporting steps.
 
 ## Key public findings
 
@@ -109,7 +111,7 @@ last sample."
 Source:
 [policy_ablations.csv](results/reference/policy_ablations.csv)
 
-## What is public here, and what is not
+## Scope of the public release
 
 | Included in the public mirror | Kept private |
 | --- | --- |
@@ -122,7 +124,7 @@ Source:
 That split is intentional. The public repo is meant to be auditable and useful
 without publishing the deployable edge.
 
-## Run the public workbench
+## Run the public demo
 
 ```bash
 python3 -m pip install -e .
